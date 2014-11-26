@@ -10,33 +10,34 @@ package org.etoile.core.math;
  * @author Jing Huang
  */
 public class Quaternion extends RowVector4 {
-    public Quaternion(double x, double y, double z, double w){
+
+    public Quaternion(double x, double y, double z, double w) {
         super(x, y, z, w);
     }
-    
-    public Quaternion(){
+
+    public Quaternion() {
         super(0, 0, 0, 1);
     }
-    
-    public Quaternion(Quaternion q){
+
+    public Quaternion(Quaternion q) {
         set(q);
     }
-    
+
     public Quaternion(ColoneVector3 axis, double angle) {
         setAxisAngle(axis, angle);
     }
-    
+
     public void setValue(double q0, double q1, double q2, double q3) {
         _data[0][0] = q0;
         _data[0][1] = q1;
         _data[0][2] = q2;
         _data[0][3] = q3;
     }
-    
+
     public void setValue(Quaternion q) {
         set(q);
     }
-    
+
     public void setAxisAngle(ColoneVector3 axis, double angle) {
         double norm = axis.length();
         if (norm < 1E-8) {
@@ -54,19 +55,19 @@ public class Quaternion extends RowVector4 {
         }
         this.normalize();
     }
-    
-    public Quaternion add(Quaternion a){
+
+    public Quaternion add(Quaternion a) {
         Quaternion q = new Quaternion();
         q.set(super.add(a));
         return q;
     }
-    
+
     public Quaternion substract(Quaternion a) {
         Quaternion q = new Quaternion();
         q.set(super.substract(a));
         return q;
     }
-    
+
     @Override
     public Quaternion multiply(double v) {
         Quaternion q = new Quaternion();
@@ -80,30 +81,30 @@ public class Quaternion extends RowVector4 {
         q.set(super.divide(v));
         return q;
     }
-    
-    public Quaternion multiply(Quaternion q){
+
+    public Quaternion multiply(Quaternion q) {
         return new Quaternion(_data[0][3] * q._data[0][0] + q._data[0][3] * _data[0][0] + _data[0][1] * q._data[0][2] - _data[0][2] * q._data[0][1],
                 _data[0][3] * q._data[0][1] + q._data[0][3] * _data[0][1] + _data[0][2] * q._data[0][0] - _data[0][0] * q._data[0][2],
                 _data[0][3] * q._data[0][2] + q._data[0][3] * _data[0][2] + _data[0][0] * q._data[0][1] - _data[0][1] * q._data[0][0],
                 _data[0][3] * q._data[0][3] - q._data[0][0] * _data[0][0] - _data[0][1] * q._data[0][1] - _data[0][2] * q._data[0][2]);
     }
-    
+
     public Quaternion conjugate() {
         return new Quaternion(-_data[0][0], -_data[0][1], -_data[0][2], _data[0][3]);
     }
-    
+
     public Quaternion inverse() {
         double scalar = 1 / (_data[0][0] * _data[0][0] + _data[0][1] * _data[0][1] + _data[0][2] * _data[0][2] + _data[0][3] * _data[0][3]);
         Quaternion res = conjugate();
         res.multiplySelf(scalar);
         return res;
     }
-    
-    public ColoneVector3 multiply(ColoneVector3 v){
+
+    public ColoneVector3 multiply(ColoneVector3 v) {
         Quaternion r = new Quaternion(this);
         return r.rotate(v);
     }
-    
+
     public ColoneVector3 rotate(ColoneVector3 v) {
         Quaternion vecQuat = new Quaternion(v.x(), v.y(), v.z(), 0.0f);
         Quaternion resQuat = vecQuat.multiply(inverse());
@@ -111,7 +112,7 @@ public class Quaternion extends RowVector4 {
         ColoneVector3 re = new ColoneVector3(resQuat.get(0), resQuat.get(1), resQuat.get(2));
         return re;
     }
-    
+
     public ColoneVector3 axis() {
         ColoneVector3 res = new ColoneVector3(_data[0][0], _data[0][1], _data[0][2]);
         double sinus = res.length();
@@ -123,10 +124,10 @@ public class Quaternion extends RowVector4 {
 
     public double angle() {
         double angle = 2.0 * java.lang.Math.acos(_data[0][3]);
-        return (double)(angle <= java.lang.Math.PI ? angle : 2.0 * java.lang.Math.PI - angle);
+        return (double) (angle <= java.lang.Math.PI ? angle : 2.0 * java.lang.Math.PI - angle);
     }
-    
-     public static Quaternion lerp(Quaternion q1, Quaternion q2, double t) {
+
+    public static Quaternion lerp(Quaternion q1, Quaternion q2, double t) {
         Quaternion res = new Quaternion();
         res.set(q1.multiply(1 - t));
         res.add(q2.multiply(t));
@@ -134,7 +135,8 @@ public class Quaternion extends RowVector4 {
         return res;
     }
 
-    /***
+    /**
+     * *
      * spherical linear Slerp interpolation
      */
     public static Quaternion slerp(Quaternion a, Quaternion b, double t, boolean allowFlip) {
@@ -161,21 +163,23 @@ public class Quaternion extends RowVector4 {
         res.normalize();
         return res;
     }
-    
+
     public static Quaternion squad(Quaternion a, Quaternion tgA, Quaternion tgB, Quaternion b, double t) {
         Quaternion ab = Quaternion.slerp(a, b, t, false);
         Quaternion tg = Quaternion.slerp(tgA, tgB, t, false);
         return Quaternion.slerp(ab, tg, 2.0f * t * (1.0f - t), false);
     }
-    
-    /***
+
+    /**
+     * *
      * //! Shoemake-Bezier interpolation using De Castlejau algorithm
+     *
      * @param q1
      * @param q2
      * @param a
      * @param b
      * @param t
-     * @return 
+     * @return
      */
     public static Quaternion bezier(Quaternion q1, Quaternion q2, Quaternion a, Quaternion b, double t) {
         // level 1
@@ -185,15 +189,17 @@ public class Quaternion extends RowVector4 {
         // level 2 and 3
         return Quaternion.slerp(Quaternion.slerp(q11, q12, t, false), Quaternion.slerp(q12, q13, t, false), t, false);
     }
-    
-    /***
-     *   //! Given 3 quaternions, qn-1,qn and qn+1, calculate a control point to be used in spline interpolation
+
+    /**
+     * *
+     *   //! Given 3 quaternions, qn-1,qn and qn+1, calculate a control point to
+     * be used in spline interpolation
+     *
      * @param qnm1
      * @param qn
      * @param qnp1
-     * @return 
+     * @return
      */
-
     public static Quaternion spline(Quaternion qnm1, Quaternion qn, Quaternion qnp1) {
         Quaternion qni = new Quaternion(qn.inverse());
         Quaternion a = qni.substract(qnm1).log();
@@ -201,7 +207,7 @@ public class Quaternion extends RowVector4 {
         Quaternion c = a.add(b).divide(-4);
         return qn.multiply(c.exp());
     }
-    
+
     public Quaternion log() {
         double len = (double) java.lang.Math.sqrt(_data[0][0] * _data[0][0] + _data[0][1] * _data[0][1] + _data[0][2] * _data[0][2]);
         if (len < 1E-6) {
@@ -211,7 +217,7 @@ public class Quaternion extends RowVector4 {
             return new Quaternion(_data[0][0] * coef, _data[0][1] * coef, _data[0][2] * coef, (double) 0.0);
         }
     }
-    
+
     public Quaternion exp() {
         double theta = (double) java.lang.Math.sqrt(_data[0][0] * _data[0][0] + _data[0][1] * _data[0][1] + _data[0][2] * _data[0][2]);
 
@@ -240,10 +246,9 @@ public class Quaternion extends RowVector4 {
 
         // if (Quaternion::dot(e,b) < 0.0)
         // e.negate();
-
         return e;
     }
-    
+
     public Matrix33 getRotationMatrix() {
         Matrix33 m = new Matrix33();
         double q00 = 2.0f * _data[0][0] * _data[0][0];
@@ -270,7 +275,7 @@ public class Quaternion extends RowVector4 {
         m.set(2, 2, 1.0 - q11 - q00);
         return m;
     }
-    
+
     public Matrix44 getMatrix() {
         Matrix44 m = new Matrix44();
         double q00 = 2.0f * _data[0][0] * _data[0][0];
@@ -297,5 +302,51 @@ public class Quaternion extends RowVector4 {
         m.set(2, 2, 1.0 - q11 - q00);
         m.set(3, 3, 1);
         return m;
+    }
+
+    public void setFromRotationMatrix(Matrix33 mat) {
+        double m[][] = mat.getData();
+        double tr = m[0][0] + m[1][1] + m[2][2];
+
+        if (tr > 0) {
+            double S = Math.sqrt(tr + 1.0) * 2; // S=4*qw 
+            _data[0][3] = 0.25 * S;
+            _data[0][0] = (m[2][1] - m[1][2]) / S;
+            _data[0][1] = (m[0][2] - m[2][0]) / S;
+            _data[0][2] = (m[1][0] - m[0][1]) / S;
+        } else if ((m[0][0] > m[1][1]) & (m[0][0] > m[2][2])) {
+            double S = Math.sqrt(1.0 + m[0][0] - m[1][1] - m[2][2]) * 2; // S=4*qx 
+            _data[0][3] = (m[2][1] - m[1][2]) / S;
+            _data[0][0] = 0.25 * S;
+            _data[0][1] = (m[0][1] + m[1][0]) / S;
+            _data[0][2] = (m[0][2] + m[2][0]) / S;
+        } else if (m[1][1] > m[2][2]) {
+            double S = Math.sqrt(1.0 + m[1][1] - m[0][0] - m[2][2]) * 2; // S=4*qy
+            _data[0][3] = (m[0][2] - m[2][0]) / S;
+            _data[0][0] = (m[0][1] + m[1][0]) / S;
+            _data[0][1] = 0.25 * S;
+            _data[0][2] = (m[1][2] + m[2][1]) / S;
+        } else {
+            double S = Math.sqrt(1.0 + m[2][2] - m[0][0] - m[1][1]) * 2; // S=4*qz
+            _data[0][3] = (m[1][0] - m[0][1]) / S;
+            _data[0][0] = (m[0][2] + m[2][0]) / S;
+            _data[0][1] = (m[1][2] + m[2][1]) / S;
+            _data[0][2] = 0.25 * S;
+        }
+    }
+    
+    public void setFromRotatedBasis(ColoneVector3 X, ColoneVector3 Y, ColoneVector3 Z) {
+        double m[][] = new double[3][3];
+        double normX = X.length();
+        double normY = Y.length();
+        double normZ = Z.length();
+        for (int i = 0; i < 3; ++i) {
+            m[i][0] = X.get(i) / normX;
+            m[i][1] = Y.get(i) / normY;
+            m[i][2] = Z.get(i) / normZ;
+        }
+        Matrix33 mat = new Matrix33();
+        mat.set(m);
+        setFromRotationMatrix(mat);
     }
 }
