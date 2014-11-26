@@ -30,13 +30,13 @@ public abstract class MatrixNN <M extends MatrixNN> extends MatrixBase{
         return copyData(super.substract(m));
     }
 
-    public M multiple(M m) {
-        return copyData(super.multiple(m));
+    public M multiply(M m) {
+        return copyData(super.multiply(m));
     }
     
     @Override
-    public M multiple(double v) {
-        return copyData(super.multiple(v));
+    public M multiply(double v) {
+        return copyData(super.multiply(v));
     }
 
     @Override

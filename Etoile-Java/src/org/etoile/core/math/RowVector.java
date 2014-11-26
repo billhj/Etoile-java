@@ -46,8 +46,8 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
     }
 
     @Override
-    public V multiple(double v) {
-        return copyData(super.multiple(v));
+    public V multiply(double v) {
+        return copyData(super.multiply(v));
     }
 
     @Override
@@ -62,5 +62,21 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
             answer += get(i) * v.get(i);
         }
         return answer;
+    }
+    
+    public double length(){
+        double length = 0;
+        for(int i = 0; i < getDimension(); ++i){
+            double v = get(i);
+            length += (v * v);
+        }
+        return Math.sqrt(length);
+    }
+    
+    public void normalize(){
+        double length = length();
+        for(int i = 0; i < getDimension(); ++i){
+            set(i,get(i)/length);
+        }
     }
 }

@@ -15,7 +15,7 @@ public class Matrix33 extends MatrixNN<Matrix33> {
         super(3);
     }
 
-    public ColoneVector3 multiple(ColoneVector3 v){
+    public ColoneVector3 multiply(ColoneVector3 v){
         ColoneVector3 answer = new ColoneVector3();
         answer.set(super.add(v));
         return null;

@@ -151,9 +151,9 @@ public class MatrixBase {
      * 
      * @param row
      * @param colone
-     * @param v multiple [row][colone] * v
+     * @param v multiply [row][colone] * v
      */
-    public void multiple(int row, int colone, double v) {
+    public void multiply(int row, int colone, double v) {
         assert (_colones > colone && _rows > row);
         _data[row][colone] *= v;
     }
@@ -174,11 +174,11 @@ public class MatrixBase {
      * @param v
      * @return m x v
      */
-    public MatrixBase multiple(double v) {
+    public MatrixBase multiply(double v) {
         MatrixBase answer = new MatrixBase(_rows, _colones);
         for (int y = 0; y < answer.getRows(); y++) {
             for (int x = 0; x < answer.getColones(); x++) {
-               answer.multiple(y, x, v);
+               answer.multiply(y, x, v);
             }
         }
         return answer;
@@ -204,7 +204,7 @@ public class MatrixBase {
      * @param matrix
      * @return multiplication
      */
-    public MatrixBase multiple(MatrixBase matrix) {
+    public MatrixBase multiply(MatrixBase matrix) {
         assert (_colones == matrix.getRows() && _rows == matrix.getColones());
         MatrixBase answer = new MatrixBase(_rows, matrix.getColones());
         for (int y = 0; y < answer.getRows(); y++) {
@@ -255,7 +255,7 @@ public class MatrixBase {
      * @param b
      * @return multiplication
      */
-    public static double[][] multiple(double[][] a, double[][] b) {
+    public static double[][] multiply(double[][] a, double[][] b) {
         assert (a != null && b != null && a.length == b[0].length && a[0].length == b.length);
         double[][] answer = new double[a.length][b[0].length];
         for (int y = 0; y < answer.length; ++y) {
