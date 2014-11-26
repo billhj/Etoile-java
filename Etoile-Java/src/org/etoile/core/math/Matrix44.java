@@ -17,8 +17,8 @@ public class Matrix44 extends MatrixNN<Matrix44> {
 
     public ColoneVector4 multiply(ColoneVector4 v){
         ColoneVector4 answer = new ColoneVector4();
-        answer.set(super.add(v));
-        return null;
+        answer.set(super.multiply(v));
+        return answer;
     }
             
     @Override

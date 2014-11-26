@@ -95,18 +95,19 @@ public class Quaternion extends RowVector4 {
     public Quaternion inverse() {
         double scalar = 1 / (_data[0][0] * _data[0][0] + _data[0][1] * _data[0][1] + _data[0][2] * _data[0][2] + _data[0][3] * _data[0][3]);
         Quaternion res = conjugate();
-        res.set(multiply(scalar));
+        res.multiplySelf(scalar);
         return res;
     }
     
     public ColoneVector3 multiply(ColoneVector3 v){
-        return rotate(v);
+        Quaternion r = new Quaternion(this);
+        return r.rotate(v);
     }
     
     public ColoneVector3 rotate(ColoneVector3 v) {
         Quaternion vecQuat = new Quaternion(v.x(), v.y(), v.z(), 0.0f);
         Quaternion resQuat = vecQuat.multiply(inverse());
-        resQuat = this.multiply(resQuat);
+        resQuat.set(this.multiply(resQuat));
         ColoneVector3 re = new ColoneVector3(resQuat.get(0), resQuat.get(1), resQuat.get(2));
         return re;
     }

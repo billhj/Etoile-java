@@ -24,11 +24,11 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
     }
     
     public void set(int index, double v){
-        this.set(1, index, v);
+        this.set(0, index, v);
     }
     
     public double get(int index){
-        return super.get(1, index);
+        return super.get(0, index);
     }
     
     public void set(double[] v){
@@ -78,5 +78,15 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
         for(int i = 0; i < getDimension(); ++i){
             set(i,get(i)/length);
         }
+    }
+    
+    @Override
+    public String toString(){
+        String out = "[\n";
+        for(int i = 0; i < getDimension(); ++i){
+            out +=get(i) + " ";
+        }
+        out += "]\n";
+        return out;
     }
 }

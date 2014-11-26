@@ -24,11 +24,11 @@ public abstract class ColoneVector<V extends ColoneVector> extends MatrixBase{
     }
     
     public void set(int index, double v){
-        this.set(index, 1, v);
+        this.set(index, 0, v);
     }
     
     public double get(int index){
-        return super.get(index, 1);
+        return super.get(index, 0);
     }
     
     public void set(double[] v){
@@ -78,5 +78,15 @@ public abstract class ColoneVector<V extends ColoneVector> extends MatrixBase{
         for(int i = 0; i < getDimension(); ++i){
             set(i,get(i)/length);
         }
+    }
+    
+    @Override
+    public String toString(){
+        String out = "[\n";
+        for(int i = 0; i < getDimension(); ++i){
+            out +=get(i) + "\n";
+        }
+        out += "]\n";
+        return out;
     }
 }

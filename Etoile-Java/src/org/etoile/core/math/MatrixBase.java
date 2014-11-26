@@ -178,10 +178,18 @@ public class MatrixBase {
         MatrixBase answer = new MatrixBase(_rows, _colones);
         for (int y = 0; y < answer.getRows(); y++) {
             for (int x = 0; x < answer.getColones(); x++) {
-               answer.multiply(y, x, v);
+               answer.set(y, x, _data[y][x] * v);
             }
         }
         return answer;
+    }
+    
+    public void multiplySelf(double v) {
+        for (int y = 0; y < getRows(); y++) {
+            for (int x = 0; x < getColones(); x++) {
+               set(y, x, _data[y][x] * v);
+            }
+        }
     }
     
     /***
@@ -193,10 +201,18 @@ public class MatrixBase {
         MatrixBase answer = new MatrixBase(_rows, _colones);
         for (int y = 0; y < answer.getRows(); y++) {
             for (int x = 0; x < answer.getColones(); x++) {
-               answer.divide(y, x, v);
+               answer.set(y, x, _data[y][x] / v);
             }
         }
         return answer;
+    }
+    
+    public void divideSelf(double v) {
+        for (int y = 0; y < getRows(); y++) {
+            for (int x = 0; x < getColones(); x++) {
+               set(y, x, _data[y][x] / v);
+            }
+        }
     }
 
     /***
@@ -225,12 +241,20 @@ public class MatrixBase {
     public MatrixBase add(MatrixBase matrix) {
         assert (_colones == matrix.getColones() && _rows == matrix.getRows());
         MatrixBase answer = new MatrixBase(_rows, _colones);
-        for (int y = 0; y < answer.getRows(); y++) {
-            for (int x = 0; x < answer.getColones(); x++) {
+        for (int y = 0; y < answer.getRows(); ++y) {
+            for (int x = 0; x < answer.getColones(); ++x) {
                 answer.add(y, x, _data[y][x] + matrix.getData()[y][x]); 
             }
         }
         return answer;
+    }
+    
+    public void addSelf(MatrixBase matrix) {
+        for (int y = 0; y < getRows(); ++y) {
+            for (int x = 0; x < getColones(); ++x) {
+                _data[y][x] += matrix.getData()[y][x]; 
+            }
+        }
     }
     
     /***
@@ -247,6 +271,14 @@ public class MatrixBase {
             }
         }
         return answer;
+    }
+    
+    public void substractSelf(MatrixBase matrix) {
+        for (int y = 0; y < getRows(); y++) {
+            for (int x = 0; x < getColones(); x++) {
+                _data[y][x] -= matrix.getData()[y][x]; 
+            }
+        }
     }
 
     /***
