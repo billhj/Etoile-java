@@ -163,6 +163,36 @@ public class MatrixBase {
         assert (_colones > colone && _rows > row);
         _data[row][colone] /= v;
     }
+    
+    /***
+     * 
+     * @param v
+     * @return m x v
+     */
+    public MatrixBase multiple(double v) {
+        MatrixBase answer = new MatrixBase(_rows, _colones);
+        for (int y = 0; y < answer.getRows(); y++) {
+            for (int x = 0; x < answer.getColones(); x++) {
+               answer.multiple(y, x, v);
+            }
+        }
+        return answer;
+    }
+    
+    /***
+     * 
+     * @param v
+     * @return m / v
+     */
+    public MatrixBase divide(double v) {
+        MatrixBase answer = new MatrixBase(_rows, _colones);
+        for (int y = 0; y < answer.getRows(); y++) {
+            for (int x = 0; x < answer.getColones(); x++) {
+               answer.divide(y, x, v);
+            }
+        }
+        return answer;
+    }
 
     /***
      * 
@@ -181,11 +211,43 @@ public class MatrixBase {
         }
         return answer;
     }
+    
+    /***
+     * 
+     * @param matrix
+     * @return addition
+     */
+    public MatrixBase add(MatrixBase matrix) {
+        assert (_colones == matrix.getColones() && _rows == matrix.getRows());
+        MatrixBase answer = new MatrixBase(_rows, _colones);
+        for (int y = 0; y < answer.getRows(); y++) {
+            for (int x = 0; x < answer.getColones(); x++) {
+                answer.add(y, x, _data[y][x] + matrix.getData()[y][x]); 
+            }
+        }
+        return answer;
+    }
+    
+    /***
+     * 
+     * @param matrix
+     * @return addition
+     */
+    public MatrixBase substract(MatrixBase matrix) {
+        assert (_colones == matrix.getColones() && _rows == matrix.getRows());
+        MatrixBase answer = new MatrixBase(_rows, _colones);
+        for (int y = 0; y < answer.getRows(); y++) {
+            for (int x = 0; x < answer.getColones(); x++) {
+                answer.add(y, x, _data[y][x] - matrix.getData()[y][x]); 
+            }
+        }
+        return answer;
+    }
 
     /***
      * 
-     * @param matrix a
-     * @param matrix b
+     * @param a
+     * @param b
      * @return multiplication
      */
     public static double[][] multiple(double[][] a, double[][] b) {
@@ -246,6 +308,8 @@ public class MatrixBase {
     
     /***
      * compare two Matrix if values are equal
+     * @param m
+     * @return boolean true if equal
      */
     public boolean equals(MatrixBase m) {
         if (_rows != m.getRows() || _colones != m.getColones()) {
