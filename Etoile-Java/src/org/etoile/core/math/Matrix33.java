@@ -22,7 +22,7 @@ public class Matrix33 extends MatrixNN<Matrix33> {
     }
     
     @Override
-    Matrix33 copyData(MatrixBase arv) {
+    public Matrix33 copyData(MatrixBase arv) {
         Matrix33 m = new Matrix33();
         m.set(arv);
         return m;

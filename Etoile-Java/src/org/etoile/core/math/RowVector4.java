@@ -24,7 +24,7 @@ public class RowVector4 extends RowVector<RowVector4> {
     }
 
     @Override
-    RowVector4 copyData(MatrixBase arv) {
+    public RowVector4 copyData(MatrixBase arv) {
         RowVector4 v = new RowVector4();
         v.set(arv);
         return v;

@@ -35,7 +35,7 @@ public class RowVector3 extends RowVector<RowVector3> {
     }
 
     @Override
-    RowVector3 copyData(MatrixBase arv) {
+    public RowVector3 copyData(MatrixBase arv) {
         RowVector3 v = new RowVector3();
         v.set(arv);
         return v;

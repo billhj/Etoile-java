@@ -16,7 +16,7 @@ public abstract class MatrixNN <M extends MatrixNN> extends MatrixBase{
         super(dimension, dimension);
     }
     
-    abstract M copyData(MatrixBase arv);
+    public abstract M copyData(MatrixBase arv);
     
     public int getDimension(){
         return getColones();

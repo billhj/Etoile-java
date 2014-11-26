@@ -17,7 +17,7 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
         super(1, colones);
     }
     
-    abstract V copyData(MatrixBase arv);
+    public abstract V copyData(MatrixBase arv);
     
     public int getDimension(){
         return getColones();
