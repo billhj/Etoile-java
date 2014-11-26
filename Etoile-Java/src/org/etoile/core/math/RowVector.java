@@ -27,6 +27,10 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
         this.set(1, index, v);
     }
     
+    public double get(int index){
+        return super.get(1, index);
+    }
+    
     public void set(double[] v){
         for(int i = 0; i < _colones; ++i){
             set(i, v[i]);
@@ -49,5 +53,14 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
     @Override
     public V divide(double v) {
         return copyData(super.divide(v));
+    }
+    
+    public double dot(V v) {
+        assert(this.getDimension() == v.getDimension());
+        double answer = 0;
+        for(int i = 0; i < v.getDimension(); ++i){
+            answer += get(i) * v.get(i);
+        }
+        return answer;
     }
 }

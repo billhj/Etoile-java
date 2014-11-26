@@ -70,6 +70,11 @@ public class MatrixBase {
     public void setRows(int row) {
         this._rows = row;
     }
+    
+    public double get(int row, int colone){
+        assert (_colones > colone && _rows > row);
+        return _data[row][colone];
+    }
 
     /***
      * 

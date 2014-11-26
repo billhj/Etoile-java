@@ -30,6 +30,20 @@ public class ColoneVector4 extends ColoneVector<ColoneVector4> {
         return v;
     }
 
-   
+    public double x(){
+        return get(0);
+    }
+    
+    public double y(){
+        return get(1);
+    }
+    
+    public double z(){
+        return get(2);
+    }
+    
+    public double w(){
+        return get(3);
+    }
 
 }

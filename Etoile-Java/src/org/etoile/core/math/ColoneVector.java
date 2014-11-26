@@ -27,6 +27,10 @@ public abstract class ColoneVector<V extends ColoneVector> extends MatrixBase{
         this.set(index, 1, v);
     }
     
+    public double get(int index){
+        return super.get(index, 1);
+    }
+    
     public void set(double[] v){
         for(int i = 0; i < _rows; ++i){
             set(i, v[i]);
@@ -49,5 +53,14 @@ public abstract class ColoneVector<V extends ColoneVector> extends MatrixBase{
     @Override
     public V divide(double v) {
         return copyData(super.divide(v));
+    }
+   
+    public double dot(V v) {
+        assert(this.getDimension() == v.getDimension());
+        double answer = 0;
+        for(int i = 0; i < v.getDimension(); ++i){
+            answer += get(i) * v.get(i);
+        }
+        return answer;
     }
 }
