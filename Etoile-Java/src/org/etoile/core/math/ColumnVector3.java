@@ -9,23 +9,22 @@ package org.etoile.core.math;
  *
  * @author Jing Huang
  */
-public class ColoneVector4 extends ColoneVector<ColoneVector4> {
+public class ColumnVector3 extends ColumnVector<ColumnVector3> {
 
-    public ColoneVector4() {
-        super(4);
+    public ColumnVector3() {
+        super(3);
     }
 
-    public ColoneVector4(double x, double y, double z, double w){
+    public ColumnVector3(double x, double y, double z) {
         this();
         set(0, x);
         set(1, y);
         set(2, z);
-        set(3, w);
     }
-    
+
     @Override
-    ColoneVector4 copyData(MatrixBase arv) {
-        ColoneVector4 v = new ColoneVector4();
+    ColumnVector3 copyData(MatrixBase arv) {
+        ColumnVector3 v = new ColumnVector3();
         v.set(arv);
         return v;
     }
@@ -42,8 +41,14 @@ public class ColoneVector4 extends ColoneVector<ColoneVector4> {
         return get(2);
     }
     
-    public double w(){
-        return get(3);
+    public ColumnVector3 cross3(ColumnVector3 v){
+        ColumnVector3 c = new ColumnVector3();
+        double x = y() * v.z() - z() * v.y();
+        double y = z() * v.x() - x() * v.z();
+        double z = x() * v.y() - y() * v.x();
+        c.set(0, x);
+        c.set(1, y);
+        c.set(2, z);
+        return c;
     }
-
 }

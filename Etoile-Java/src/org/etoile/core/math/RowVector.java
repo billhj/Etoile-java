@@ -20,7 +20,7 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
     public abstract V copyData(MatrixBase arv);
     
     public int getDimension(){
-        return getColones();
+        return getColumns();
     }
     
     public void set(int index, double v){
@@ -32,7 +32,7 @@ public abstract class RowVector<V extends RowVector> extends MatrixBase{
     }
     
     public void set(double[] v){
-        for(int i = 0; i < _colones; ++i){
+        for(int i = 0; i < _columns; ++i){
             set(i, v[i]);
         }
     }

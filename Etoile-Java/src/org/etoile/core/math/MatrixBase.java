@@ -13,11 +13,11 @@ package org.etoile.core.math;
 public class MatrixBase {
 
     protected double[][] _data;
-    protected int _colones = 0;
+    protected int _columns = 0;
     protected int _rows = 0;
 
     public MatrixBase(int rows, int colones) {
-        _colones = colones;
+        _columns = colones;
         _rows = rows;
         rebuild();
     }
@@ -25,16 +25,16 @@ public class MatrixBase {
     public MatrixBase(double[][] data) {
         this(data.length, data[0].length);
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 _data[y][x] = data[y][x];
             }
         }
     }
 
     public MatrixBase(MatrixBase matrix) {
-        this(matrix.getRows(), matrix.getColones());
+        this(matrix.getRows(), matrix.getColumns());
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 _data[y][x] = matrix.getData()[y][x];
             }
         }
@@ -44,7 +44,7 @@ public class MatrixBase {
      * create new array
      */
     public void rebuild() {
-        _data = new double[_rows][_colones];
+        _data = new double[_rows][_columns];
     }
 
     public double[][] getData() {
@@ -55,12 +55,12 @@ public class MatrixBase {
         this._data = data;
     }
 
-    public int getColones() {
-        return _colones;
+    public int getColumns() {
+        return _columns;
     }
 
-    public void setColones(int colone) {
-        this._colones = colone;
+    public void setColumns(int colone) {
+        this._columns = colone;
     }
 
     public int getRows() {
@@ -72,7 +72,7 @@ public class MatrixBase {
     }
     
     public double get(int row, int colone){
-        assert (_colones > colone && _rows > row);
+        assert (_columns > colone && _rows > row);
         return _data[row][colone];
     }
 
@@ -83,7 +83,7 @@ public class MatrixBase {
      * set row and colone
      */
     public void set(int row, int colone) {
-        setColones(colone);
+        setColumns(colone);
         setRows(row);
         rebuild();
     }
@@ -95,7 +95,7 @@ public class MatrixBase {
      * @param v set value [row][colone] = v
      */
     public void set(int row, int colone, double v) {
-        assert (_colones > colone && _rows > row);
+        assert (_columns > colone && _rows > row);
         _data[row][colone] = v;
     }
 
@@ -106,7 +106,7 @@ public class MatrixBase {
     public void set(double[][] data) {
         set(data.length, data[0].length);
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 _data[y][x] = data[y][x];
             }
         }
@@ -117,9 +117,9 @@ public class MatrixBase {
      * @param matrix set matrix 
      */
     public void set(MatrixBase matrix) {
-        set(matrix.getRows(), matrix.getColones());
+        set(matrix.getRows(), matrix.getColumns());
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 _data[y][x] = matrix.getData()[y][x];
             }
         }
@@ -132,7 +132,7 @@ public class MatrixBase {
      * @param v add [row][colone] + v
      */
     public void add(int row, int colone, double v) {
-        assert (_colones > colone && _rows > row);
+        assert (_columns > colone && _rows > row);
         _data[row][colone] += v;
     }
 
@@ -143,7 +143,7 @@ public class MatrixBase {
      * @param v sub [row][colone] - v
      */
     public void substract(int row, int colone, double v) {
-        assert (_colones > colone && _rows > row);
+        assert (_columns > colone && _rows > row);
         _data[row][colone] -= v;
     }
 
@@ -154,7 +154,7 @@ public class MatrixBase {
      * @param v multiply [row][colone] * v
      */
     public void multiply(int row, int colone, double v) {
-        assert (_colones > colone && _rows > row);
+        assert (_columns > colone && _rows > row);
         _data[row][colone] *= v;
     }
 
@@ -165,7 +165,7 @@ public class MatrixBase {
      * @param v divide [row][colone] / v
      */
     public void divide(int row, int colone, double v) {
-        assert (_colones > colone && _rows > row);
+        assert (_columns > colone && _rows > row);
         _data[row][colone] /= v;
     }
     
@@ -175,9 +175,9 @@ public class MatrixBase {
      * @return m x v
      */
     public MatrixBase multiply(double v) {
-        MatrixBase answer = new MatrixBase(_rows, _colones);
+        MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); y++) {
-            for (int x = 0; x < answer.getColones(); x++) {
+            for (int x = 0; x < answer.getColumns(); x++) {
                answer.set(y, x, _data[y][x] * v);
             }
         }
@@ -186,7 +186,7 @@ public class MatrixBase {
     
     public void multiplySelf(double v) {
         for (int y = 0; y < getRows(); y++) {
-            for (int x = 0; x < getColones(); x++) {
+            for (int x = 0; x < getColumns(); x++) {
                set(y, x, _data[y][x] * v);
             }
         }
@@ -198,9 +198,9 @@ public class MatrixBase {
      * @return m / v
      */
     public MatrixBase divide(double v) {
-        MatrixBase answer = new MatrixBase(_rows, _colones);
+        MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); y++) {
-            for (int x = 0; x < answer.getColones(); x++) {
+            for (int x = 0; x < answer.getColumns(); x++) {
                answer.set(y, x, _data[y][x] / v);
             }
         }
@@ -209,7 +209,7 @@ public class MatrixBase {
     
     public void divideSelf(double v) {
         for (int y = 0; y < getRows(); y++) {
-            for (int x = 0; x < getColones(); x++) {
+            for (int x = 0; x < getColumns(); x++) {
                set(y, x, _data[y][x] / v);
             }
         }
@@ -221,11 +221,11 @@ public class MatrixBase {
      * @return multiplication
      */
     public MatrixBase multiply(MatrixBase matrix) {
-        assert (_colones == matrix.getRows() && _rows == matrix.getColones());
-        MatrixBase answer = new MatrixBase(_rows, matrix.getColones());
+        assert (_columns == matrix.getRows() && _rows == matrix.getColumns());
+        MatrixBase answer = new MatrixBase(_rows, matrix.getColumns());
         for (int y = 0; y < answer.getRows(); y++) {
-            for (int x = 0; x < answer.getColones(); x++) {
-                for (int i = 0; i < _colones; i++) {
+            for (int x = 0; x < answer.getColumns(); x++) {
+                for (int i = 0; i < _columns; i++) {
                     answer.add(y, x, _data[y][i] * matrix.getData()[i][x]);
                 }
             }
@@ -239,10 +239,10 @@ public class MatrixBase {
      * @return addition
      */
     public MatrixBase add(MatrixBase matrix) {
-        assert (_colones == matrix.getColones() && _rows == matrix.getRows());
-        MatrixBase answer = new MatrixBase(_rows, _colones);
+        assert (_columns == matrix.getColumns() && _rows == matrix.getRows());
+        MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); ++y) {
-            for (int x = 0; x < answer.getColones(); ++x) {
+            for (int x = 0; x < answer.getColumns(); ++x) {
                 answer.add(y, x, _data[y][x] + matrix.getData()[y][x]); 
             }
         }
@@ -251,7 +251,7 @@ public class MatrixBase {
     
     public void addSelf(MatrixBase matrix) {
         for (int y = 0; y < getRows(); ++y) {
-            for (int x = 0; x < getColones(); ++x) {
+            for (int x = 0; x < getColumns(); ++x) {
                 _data[y][x] += matrix.getData()[y][x]; 
             }
         }
@@ -263,10 +263,10 @@ public class MatrixBase {
      * @return addition
      */
     public MatrixBase substract(MatrixBase matrix) {
-        assert (_colones == matrix.getColones() && _rows == matrix.getRows());
-        MatrixBase answer = new MatrixBase(_rows, _colones);
+        assert (_columns == matrix.getColumns() && _rows == matrix.getRows());
+        MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); y++) {
-            for (int x = 0; x < answer.getColones(); x++) {
+            for (int x = 0; x < answer.getColumns(); x++) {
                 answer.add(y, x, _data[y][x] - matrix.getData()[y][x]); 
             }
         }
@@ -275,7 +275,7 @@ public class MatrixBase {
     
     public void substractSelf(MatrixBase matrix) {
         for (int y = 0; y < getRows(); y++) {
-            for (int x = 0; x < getColones(); x++) {
+            for (int x = 0; x < getColumns(); x++) {
                 _data[y][x] -= matrix.getData()[y][x]; 
             }
         }
@@ -305,9 +305,9 @@ public class MatrixBase {
      * @return transposed matrix
      */
     public MatrixBase transpose() {
-        MatrixBase answer = new MatrixBase(this._colones, this._rows);
+        MatrixBase answer = new MatrixBase(this._columns, this._rows);
         for (int y = 0; y < answer.getRows(); ++y) {
-            for (int x = 0; x < answer.getColones(); ++x) {
+            for (int x = 0; x < answer.getColumns(); ++x) {
                 answer.set(y, x, getData()[x][y]);
             }
         }
@@ -326,7 +326,7 @@ public class MatrixBase {
      */
     public void setToIdentity() {
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 _data[y][x] = (x == y ? 1 : 0);
             }
         }
@@ -337,7 +337,7 @@ public class MatrixBase {
      */
     public void setToZero() {
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 _data[y][x] = 0;
             }
         }
@@ -349,11 +349,11 @@ public class MatrixBase {
      * @return boolean true if equal
      */
     public boolean equals(MatrixBase m) {
-        if (_rows != m.getRows() || _colones != m.getColones()) {
+        if (_rows != m.getRows() || _columns != m.getColumns()) {
             return false;
         }
         for (int y = 0; y < _rows; ++y) {
-            for (int x = 0; x < _colones; ++x) {
+            for (int x = 0; x < _columns; ++x) {
                 if (_data[y][x] != m.getData()[y][x]) {
                     return false;
                 }

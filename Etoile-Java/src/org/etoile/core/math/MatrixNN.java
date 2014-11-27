@@ -19,7 +19,7 @@ public abstract class MatrixNN <M extends MatrixNN> extends MatrixBase{
     public abstract M copyData(MatrixBase arv);
     
     public int getDimension(){
-        return getColones();
+        return getColumns();
     }
     
     public M add(M m){

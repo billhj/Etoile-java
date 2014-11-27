@@ -23,7 +23,7 @@ public class Quaternion extends RowVector4 {
         set(q);
     }
 
-    public Quaternion(ColoneVector3 axis, double angle) {
+    public Quaternion(ColumnVector3 axis, double angle) {
         setAxisAngle(axis, angle);
     }
 
@@ -38,7 +38,7 @@ public class Quaternion extends RowVector4 {
         set(q);
     }
 
-    public void setAxisAngle(ColoneVector3 axis, double angle) {
+    public void setAxisAngle(ColumnVector3 axis, double angle) {
         double norm = axis.length();
         if (norm < 1E-8) {
             // Null rotation
@@ -100,21 +100,21 @@ public class Quaternion extends RowVector4 {
         return res;
     }
 
-    public ColoneVector3 multiply(ColoneVector3 v) {
+    public ColumnVector3 multiply(ColumnVector3 v) {
         Quaternion r = new Quaternion(this);
         return r.rotate(v);
     }
 
-    public ColoneVector3 rotate(ColoneVector3 v) {
+    public ColumnVector3 rotate(ColumnVector3 v) {
         Quaternion vecQuat = new Quaternion(v.x(), v.y(), v.z(), 0.0f);
         Quaternion resQuat = vecQuat.multiply(inverse());
         resQuat.set(this.multiply(resQuat));
-        ColoneVector3 re = new ColoneVector3(resQuat.get(0), resQuat.get(1), resQuat.get(2));
+        ColumnVector3 re = new ColumnVector3(resQuat.get(0), resQuat.get(1), resQuat.get(2));
         return re;
     }
 
-    public ColoneVector3 axis() {
-        ColoneVector3 res = new ColoneVector3(_data[0][0], _data[0][1], _data[0][2]);
+    public ColumnVector3 axis() {
+        ColumnVector3 res = new ColumnVector3(_data[0][0], _data[0][1], _data[0][2]);
         double sinus = res.length();
         if (sinus > 1E-8) {
             res.divide(sinus);
@@ -335,7 +335,7 @@ public class Quaternion extends RowVector4 {
         }
     }
     
-    public void setFromRotatedBasis(ColoneVector3 X, ColoneVector3 Y, ColoneVector3 Z) {
+    public void setFromRotatedBasis(ColumnVector3 X, ColumnVector3 Y, ColumnVector3 Z) {
         double m[][] = new double[3][3];
         double normX = X.length();
         double normY = Y.length();

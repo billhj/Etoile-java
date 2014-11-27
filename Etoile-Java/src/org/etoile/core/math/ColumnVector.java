@@ -11,9 +11,9 @@ package org.etoile.core.math;
  *  [v;v;v]
  * @param <V>
  */
-public abstract class ColoneVector<V extends ColoneVector> extends MatrixBase{
+public abstract class ColumnVector<V extends ColumnVector> extends MatrixBase{
 
-    public ColoneVector(int rows) {
+    public ColumnVector(int rows) {
         super(rows, 1);
     }
     
