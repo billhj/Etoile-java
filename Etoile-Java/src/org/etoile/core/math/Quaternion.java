@@ -8,6 +8,7 @@ package org.etoile.core.math;
 /**
  *
  * @author Jing Huang
+ * quaternion represent spatial rotations similar to matrix
  */
 public class Quaternion extends RowVector4 {
 
