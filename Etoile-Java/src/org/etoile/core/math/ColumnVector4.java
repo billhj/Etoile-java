@@ -9,7 +9,7 @@ package org.etoile.core.math;
  *
  * @author Jing Huang
  */
-public class ColumnVector4 extends ColumnVector<ColumnVector4> {
+public class ColumnVector4 extends AbstractColumnVector<ColumnVector4> {
 
     public ColumnVector4() {
         super(4);

@@ -8,39 +8,18 @@ package org.etoile.core.math;
 /**
  *
  * @author Jing Huang
- * @param <M>
  */
-public abstract class MatrixNN <M extends MatrixNN> extends MatrixBase{
+public class MatrixNN extends AbstractMatrixNN<MatrixNN>{
 
     public MatrixNN(int dimension) {
-        super(dimension, dimension);
-    }
-    
-    public abstract M copyData(MatrixBase arv);
-    
-    public int getDimension(){
-        return getColumns();
-    }
-    
-    public M add(M m){
-        return copyData(super.add(m));
-    }
-    
-    public M substract(M m) {
-        return copyData(super.substract(m));
-    }
-
-    public M multiply(M m) {
-        return copyData(super.multiply(m));
-    }
-    
-    @Override
-    public M multiply(double v) {
-        return copyData(super.multiply(v));
+        super(dimension);
     }
 
     @Override
-    public M divide(double v) {
-        return copyData(super.divide(v));
+    public MatrixNN copyData(MatrixBase arv) {
+        MatrixNN m = new MatrixNN(arv.getRows());
+        m.set(arv);
+        return m;
     }
+    
 }

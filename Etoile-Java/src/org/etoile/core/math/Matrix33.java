@@ -9,7 +9,7 @@ package org.etoile.core.math;
  *
  * @author Jing Huang
  */
-public class Matrix33 extends MatrixNN<Matrix33> {
+public class Matrix33 extends AbstractMatrixNN<Matrix33> {
 
     public Matrix33() {
         super(3);

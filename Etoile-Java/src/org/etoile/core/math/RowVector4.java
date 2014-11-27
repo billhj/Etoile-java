@@ -9,7 +9,7 @@ package org.etoile.core.math;
  *
  * @author Jing Huang
  */
-public class RowVector4 extends RowVector<RowVector4> {
+public class RowVector4 extends AbstractRowVector<RowVector4> {
 
     public RowVector4() {
         super(4);
