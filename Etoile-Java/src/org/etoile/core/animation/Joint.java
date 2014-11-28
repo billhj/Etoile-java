@@ -29,8 +29,9 @@ public class Joint {
     String _name;
     int _id = -1;
     Skeleton _skeleton;
+    JointType _type = JointType.J_UNKNOWN;
+    Dof[] _dofs;
     
-
     public Joint(String name, int id, int parent, Skeleton skeleton) {
         _skeleton = skeleton;
         _name = name;
@@ -50,6 +51,11 @@ public class Joint {
 
     public Joint(String name) {
         this(name, -1, -1, null);
+    }
+    
+    public void setDofs(JointType type, Dof[] dofs){
+        _dofs = dofs;
+        _type = type;
     }
 
     public void setParent(Joint parent) {
