@@ -22,6 +22,12 @@ public class RowVector3 extends AbstractRowVector<RowVector3> {
         set(2, z);
     }
     
+    public void set(double x, double y, double z){
+        set(0, x);
+        set(1, y);
+        set(2, z);
+    }
+    
     public double x(){
         return get(0);
     }

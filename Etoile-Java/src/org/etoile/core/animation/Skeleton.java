@@ -13,7 +13,7 @@ import org.etoile.core.math.Quaternion;
 /***
  *
  * @author Jing Huang
- * skeleton structure for updating
+ * skeleton structure for updating  
  */
 public class Skeleton {
 

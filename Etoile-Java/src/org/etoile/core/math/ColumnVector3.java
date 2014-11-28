@@ -21,6 +21,12 @@ public class ColumnVector3 extends AbstractColumnVector<ColumnVector3> {
         set(1, y);
         set(2, z);
     }
+    
+    public void set(double x, double y, double z){
+        set(0, x);
+        set(1, y);
+        set(2, z);
+    }
 
     @Override
     ColumnVector3 copyData(MatrixBase arv) {

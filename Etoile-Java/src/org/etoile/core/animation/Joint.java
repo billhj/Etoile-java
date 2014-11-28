@@ -15,9 +15,21 @@ import org.etoile.core.math.Quaternion;
  */
 public class Joint {
 
+    public static enum JointType {
+        J_UNKNOWN,
+        J_FREEEULER,
+        J_FREEEXPMAP,
+        J_BALLEULER,
+        J_BALLEXPMAP,
+        J_HINGE,
+        J_UNIVERSAL,
+        J_TRANS
+    };
+    
     String _name;
     int _id = -1;
     Skeleton _skeleton;
+    
 
     public Joint(String name, int id, int parent, Skeleton skeleton) {
         _skeleton = skeleton;
