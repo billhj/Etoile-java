@@ -30,7 +30,7 @@ public class Joint {
     int _id = -1;
     Skeleton _skeleton;
     JointType _type = JointType.J_UNKNOWN;
-    Dof[] _dofs;
+    Dof[] _dofs = new Dof[3];
     
     public Joint(String name, int id, int parent, Skeleton skeleton) {
         _skeleton = skeleton;
@@ -43,6 +43,10 @@ public class Joint {
         _skeleton = j._skeleton;
         _name = j._name;
         _id = j._id;
+        _type = j._type;
+        _dofs[0].copy(_dofs[0]);
+        _dofs[1].copy(_dofs[1]);
+        _dofs[2].copy(_dofs[2]);
     }
 
     public Joint clone() {
@@ -54,8 +58,14 @@ public class Joint {
     }
     
     public void setDofs(JointType type, Dof[] dofs){
-        _dofs = dofs;
+        _dofs[0].copy(_dofs[0]);
+        _dofs[1].copy(_dofs[1]);
+        _dofs[2].copy(_dofs[2]);
         _type = type;
+    }
+    
+    public void updateDof(int idx, double value){
+        _dofs[idx].setValue(value);
     }
 
     public void setParent(Joint parent) {

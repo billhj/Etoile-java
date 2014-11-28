@@ -88,7 +88,7 @@ public class Dof {
     }
 
     public void setAxis(ColumnVector3 axis) {
-        this._axis = axis;
+        this._axis.set(axis.get(0), axis.get(1), axis.get(2));
     }
     
     public static Dof X(){
@@ -106,6 +106,26 @@ public class Dof {
     public static Dof Z(){
         Dof dof = new Dof();
         dof._axis.set(0, 0, 1);
+        return dof;
+    }
+    
+    public void copy(Dof dof){
+        setValue(dof._value);
+        setMaxValue(dof._maxValue);
+        setMinValue(dof._minValue);
+        setAxis(dof._axis);
+        setTorque(dof._torque);
+        setMaxTorque(dof._maxTorque);
+        setMinTorque(dof._minTorque);
+    }
+    
+    @Override
+    public Dof clone(){
+        Dof dof = new Dof(_value, _minValue, _maxValue);
+        dof.setAxis(_axis);
+        dof.setTorque(_torque);
+        dof.setMaxTorque(_maxTorque);
+        dof.setMinTorque(_minTorque);
         return dof;
     }
     
