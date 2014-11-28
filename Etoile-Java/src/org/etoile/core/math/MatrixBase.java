@@ -40,7 +40,8 @@ public class MatrixBase {
         }
     }
 
-    /***
+    /**
+     * *
      * create new array
      */
     public void rebuild() {
@@ -70,17 +71,17 @@ public class MatrixBase {
     public void setRows(int row) {
         this._rows = row;
     }
-    
-    public double get(int row, int colone){
+
+    public double get(int row, int colone) {
         assert (_columns > colone && _rows > row);
         return _data[row][colone];
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param row
-     * @param colone 
-     * set row and colone
+     * @param colone set row and colone
      */
     public void set(int row, int colone) {
         setColumns(colone);
@@ -88,8 +89,9 @@ public class MatrixBase {
         rebuild();
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param row
      * @param colone
      * @param v set value [row][colone] = v
@@ -99,8 +101,9 @@ public class MatrixBase {
         _data[row][colone] = v;
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param data set matrix
      */
     public void set(double[][] data) {
@@ -112,9 +115,10 @@ public class MatrixBase {
         }
     }
 
-    /***
-     * 
-     * @param matrix set matrix 
+    /**
+     * *
+     *
+     * @param matrix set matrix
      */
     public void set(MatrixBase matrix) {
         set(matrix.getRows(), matrix.getColumns());
@@ -125,8 +129,9 @@ public class MatrixBase {
         }
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param row
      * @param colone
      * @param v add [row][colone] + v
@@ -136,8 +141,9 @@ public class MatrixBase {
         _data[row][colone] += v;
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param row
      * @param colone
      * @param v sub [row][colone] - v
@@ -147,8 +153,9 @@ public class MatrixBase {
         _data[row][colone] -= v;
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param row
      * @param colone
      * @param v multiply [row][colone] * v
@@ -158,8 +165,9 @@ public class MatrixBase {
         _data[row][colone] *= v;
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param row
      * @param colone
      * @param v divide [row][colone] / v
@@ -168,9 +176,10 @@ public class MatrixBase {
         assert (_columns > colone && _rows > row);
         _data[row][colone] /= v;
     }
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param v
      * @return m x v
      */
@@ -178,22 +187,23 @@ public class MatrixBase {
         MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); y++) {
             for (int x = 0; x < answer.getColumns(); x++) {
-               answer.set(y, x, _data[y][x] * v);
+                answer.set(y, x, _data[y][x] * v);
             }
         }
         return answer;
     }
-    
+
     public void multiplySelf(double v) {
         for (int y = 0; y < getRows(); y++) {
             for (int x = 0; x < getColumns(); x++) {
-               set(y, x, _data[y][x] * v);
+                set(y, x, _data[y][x] * v);
             }
         }
     }
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param v
      * @return m / v
      */
@@ -201,22 +211,23 @@ public class MatrixBase {
         MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); y++) {
             for (int x = 0; x < answer.getColumns(); x++) {
-               answer.set(y, x, _data[y][x] / v);
+                answer.set(y, x, _data[y][x] / v);
             }
         }
         return answer;
     }
-    
+
     public void divideSelf(double v) {
         for (int y = 0; y < getRows(); y++) {
             for (int x = 0; x < getColumns(); x++) {
-               set(y, x, _data[y][x] / v);
+                set(y, x, _data[y][x] / v);
             }
         }
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param matrix
      * @return multiplication
      */
@@ -232,9 +243,10 @@ public class MatrixBase {
         }
         return answer;
     }
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param matrix
      * @return addition
      */
@@ -243,22 +255,23 @@ public class MatrixBase {
         MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); ++y) {
             for (int x = 0; x < answer.getColumns(); ++x) {
-                answer.add(y, x, _data[y][x] + matrix.getData()[y][x]); 
+                answer.add(y, x, _data[y][x] + matrix.getData()[y][x]);
             }
         }
         return answer;
     }
-    
+
     public void addSelf(MatrixBase matrix) {
         for (int y = 0; y < getRows(); ++y) {
             for (int x = 0; x < getColumns(); ++x) {
-                _data[y][x] += matrix.getData()[y][x]; 
+                _data[y][x] += matrix.getData()[y][x];
             }
         }
     }
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param matrix
      * @return addition
      */
@@ -267,22 +280,23 @@ public class MatrixBase {
         MatrixBase answer = new MatrixBase(_rows, _columns);
         for (int y = 0; y < answer.getRows(); y++) {
             for (int x = 0; x < answer.getColumns(); x++) {
-                answer.add(y, x, _data[y][x] - matrix.getData()[y][x]); 
+                answer.add(y, x, _data[y][x] - matrix.getData()[y][x]);
             }
         }
         return answer;
     }
-    
+
     public void substractSelf(MatrixBase matrix) {
         for (int y = 0; y < getRows(); y++) {
             for (int x = 0; x < getColumns(); x++) {
-                _data[y][x] -= matrix.getData()[y][x]; 
+                _data[y][x] -= matrix.getData()[y][x];
             }
         }
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @param a
      * @param b
      * @return multiplication
@@ -300,8 +314,9 @@ public class MatrixBase {
         return answer;
     }
 
-    /***
-     * 
+    /**
+     * *
+     *
      * @return transposed matrix
      */
     public MatrixBase transpose() {
@@ -314,14 +329,16 @@ public class MatrixBase {
         return answer;
     }
 
-    /***
+    /**
+     * *
      * do transpose to self
      */
     public void transposeSelf() {
         this.set(transpose());
     }
 
-    /***
+    /**
+     * *
      * set Matrix trace to 1
      */
     public void setToIdentity() {
@@ -331,8 +348,9 @@ public class MatrixBase {
             }
         }
     }
-    
-    /***
+
+    /**
+     * *
      * set Matrix all to Zero
      */
     public void setToZero() {
@@ -342,9 +360,11 @@ public class MatrixBase {
             }
         }
     }
-    
-    /***
+
+    /**
+     * *
      * compare two Matrix if values are equal
+     *
      * @param m
      * @return boolean true if equal
      */
@@ -360,5 +380,94 @@ public class MatrixBase {
             }
         }
         return true;
+    }
+
+    /**
+     * Calculates the matrix's Moore-Penrose pseudoinverse
+     *
+     * @return an MxN matrix which is the matrix's pseudoinverse.
+     */
+    public MatrixBase pseudoInverse() {
+
+        int r, c;
+
+        int k = 1;
+        MatrixBase ak = new MatrixBase(_rows, 1);
+        MatrixBase dk;
+        MatrixBase ck, bk;
+
+        MatrixBase R_plus;
+
+        for (r = 0; r < _rows; r++) {
+            ak._data[r][0] = this._data[r][0];
+        }
+
+        if (!ak.equals(0.0)) {
+            R_plus = ak.transpose().multiply(1.0 / (ak.dot(ak)));
+        } else {
+            //R_plus= new MatrixMN(1, numCols);
+            R_plus = new MatrixBase(1, _rows);  //I modified make 
+        }
+
+        while (k < this._columns) {
+
+            for (r = 0; r < _rows; r++) {
+                ak._data[r][0] = this._data[r][k];
+            }
+
+            dk = R_plus.multiply(ak);
+            MatrixBase T = new MatrixBase(_rows, k);
+            for (r = 0; r < _rows; r++) {
+                for (c = 0; c < k; c++) {
+                    T._data[r][c] = this._data[r][c];
+                }
+            }
+
+            ck = ak.substract(T.multiply(dk));
+
+            if (!ck.equals(0.0)) {
+                bk = ck.transpose().multiply(1.0 / (ck.dot(ck)));
+            } else {
+                bk = dk.transpose().multiply(1.0 / (1.0 + dk.dot(dk))).multiply(R_plus);
+            }
+
+            MatrixBase N = R_plus.substract(dk.multiply(bk));
+            R_plus = new MatrixBase(N._rows + 1, N._columns);
+
+            for (r = 0; r < N._rows; r++) {
+                for (c = 0; c < N._columns; c++) {
+                    R_plus._data[r][c] = N._data[r][c];
+                }
+            }
+            for (c = 0; c < N._columns; c++) {
+                R_plus._data[R_plus._rows - 1][c] = bk._data[0][c];
+            }
+
+            k++;
+        }
+        return R_plus;
+    }
+
+    /**
+     * Computes the dot product (or scalar product) of two matrices by
+     * multiplying corresponding elements and summing all the products.
+     *
+     * @param m A Matrix with the same dimensions
+     * @returns the dot product (scalar product)
+     */
+    public double dot(MatrixBase m) {
+        if (_rows != m._rows || _columns != m._columns) {
+            System.out.println("dimensions bad in dot()");
+            System.exit(1);
+        }
+        double sum = 0;
+
+        for (int r = 0; r < _rows; r++) {
+            for (int c = 0; c < _columns; c++) {
+                sum += this._data[r][c] * m._data[r][c];
+            }
+        }
+
+        return sum;
     }
 }
