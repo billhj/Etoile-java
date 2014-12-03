@@ -5,17 +5,11 @@
  */
 package greta.animation.demo;
 
-import greta.animation.ode.OdeHumanSpine;
 import greta.animation.ode.OdeHumanoid;
 import greta.animation.ode.OdeJoint;
 import greta.animation.ode.OdePhysicsEnvironment;
 import greta.animation.ode.OdeRigidBody;
 import greta.animation.ode.QuaternionD;
-import greta.animation.ode.controller.BalanceController;
-import greta.animation.ode.controller.SpineController;
-import greta.animation.ode.controller.UniversalJointController;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import org.ode4j.drawstuff.DrawStuff;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;

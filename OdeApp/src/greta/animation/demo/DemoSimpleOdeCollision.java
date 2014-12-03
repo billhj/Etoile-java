@@ -7,7 +7,6 @@ package greta.animation.demo;
 
 import greta.animation.ode.SimpleOdeCollision;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;
-import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;
 import static org.ode4j.drawstuff.DrawStuff.dsSetColorAlpha;
 import org.ode4j.math.DMatrix3;
 import org.ode4j.math.DVector3;
@@ -16,7 +15,6 @@ import org.ode4j.ode.DContactBuffer;
 import org.ode4j.ode.DContactGeom;
 import org.ode4j.ode.DContactJoint;
 import org.ode4j.ode.DGeom;
-import org.ode4j.ode.DJoint;
 import org.ode4j.ode.DSpace;
 import static org.ode4j.ode.OdeConstants.dContactApprox1;
 import static org.ode4j.ode.OdeConstants.dContactSlip1;
