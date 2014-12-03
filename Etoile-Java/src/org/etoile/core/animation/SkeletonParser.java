@@ -67,7 +67,7 @@ public class SkeletonParser {
         return true;
     }
 
-    public void readJoint(XMLTree current, Skeleton skeleton) {
+    protected void readJoint(XMLTree current, Skeleton skeleton) {
 
         double id = current.getAttributeNumber("id");
         String name = current.getAttribute("name");
@@ -88,7 +88,7 @@ public class SkeletonParser {
         
     }
 
-    public void readJointHierarchy(XMLTree current, Skeleton skeleton) {
+    protected void readJointHierarchy(XMLTree current, Skeleton skeleton) {
         String jName = current.getAttribute("bone");
         String parentName = current.getAttribute("parent");
         Joint j = skeleton.getJoint(jName);
