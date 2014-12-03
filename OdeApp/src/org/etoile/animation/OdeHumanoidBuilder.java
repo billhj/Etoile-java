@@ -25,6 +25,9 @@ package org.etoile.animation;
 
 import org.etoile.animation.ode.OdeHumanoid;
 import org.etoile.core.animation.Skeleton;
+import vib.core.util.xml.XML;
+import vib.core.util.xml.XMLParser;
+import vib.core.util.xml.XMLTree;
 
 /**
  *
@@ -32,7 +35,20 @@ import org.etoile.core.animation.Skeleton;
  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
 public class OdeHumanoidBuilder {
-    public void load(Skeleton sk, OdeHumanoid human){
+    String _filepath = "";
+    XMLTree _tree;
     
+    public boolean loadFile(String filepath) {
+        _filepath = filepath;
+        XMLParser xmlparser = XML.createParser();
+        xmlparser.setValidating(false);
+        _tree = xmlparser.parseFile(filepath);
+        return _tree != null;
+    }
+    
+    public boolean buildBodyFromSkeleton(Skeleton sk, OdeHumanoid human){
+        
+        
+        return true;
     }
 }
