@@ -32,6 +32,7 @@ import static org.ode4j.ode.DGeom.dCapsuleClass;
 import static org.ode4j.ode.DGeom.dCylinderClass;
 import static org.ode4j.ode.DGeom.dSphereClass;
 import org.ode4j.ode.DSphere;
+import org.etoile.animation.SkeletonParser;
 
 /**
  *

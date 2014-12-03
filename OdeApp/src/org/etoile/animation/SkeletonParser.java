@@ -118,13 +118,13 @@ public class SkeletonParser {
         j.setParent(jp);
     }
 
-    public static void main(String[] args) {
-
-        Skeleton skeleton = new Skeleton("test");
-        SkeletonParser parser = new SkeletonParser();
-        if (parser.loadFile("../bin/data/camille_skeleton.xml")) {
-            parser.readSkeletonInfo(skeleton);
-            System.out.println("finish loading skeleton");
-        }
-    }
+//    public static void main(String[] args) {
+//
+//        Skeleton skeleton = new Skeleton("test");
+//        SkeletonParser parser = new SkeletonParser();
+//        if (parser.loadFile("../bin/data/camille_skeleton.xml")) {
+//            parser.readSkeletonInfo(skeleton);
+//            System.out.println("finish loading skeleton");
+//        }
+//    }
 }
