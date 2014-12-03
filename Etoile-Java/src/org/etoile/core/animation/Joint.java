@@ -28,14 +28,16 @@ import org.etoile.core.math.ColumnVector3;
 import org.etoile.core.math.Matrix44;
 import org.etoile.core.math.Quaternion;
 
-
 /**
  *
- * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
+ * @author Jing Huang
+ *
+ * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
 public class Joint {
 
     public static enum JointType {
+
         J_UNKNOWN,
         J_FREEEULER,
         J_FREEEXPMAP,
@@ -45,13 +47,13 @@ public class Joint {
         J_UNIVERSAL,
         J_TRANS
     };
-    
+
     String _name;
     int _id = -1;
     Skeleton _skeleton;
     JointType _type = JointType.J_UNKNOWN;
     Dof[] _dofs = new Dof[3];
-    
+
     public Joint(String name, int id, int parent, Skeleton skeleton) {
         _skeleton = skeleton;
         _name = name;
@@ -64,12 +66,18 @@ public class Joint {
         _name = j._name;
         _id = j._id;
         _type = j._type;
-        _dofs[0].copy(_dofs[0]);
-        _dofs[1].copy(_dofs[1]);
-        _dofs[2].copy(_dofs[2]);
+        if (j._dofs[0] != null) {
+            _dofs[0].copy(j._dofs[0]);
+        }
+        if (j._dofs[1] != null) {
+            _dofs[1].copy(j._dofs[1]);
+        }
+        if (j._dofs[2] != null) {
+            _dofs[2].copy(j._dofs[2]);
+        }
     }
-    
-    public void setSkeleton(Skeleton skeleton){
+
+    public void setSkeleton(Skeleton skeleton) {
         _skeleton = skeleton;
     }
 
@@ -81,15 +89,21 @@ public class Joint {
     public Joint(String name) {
         this(name, -1, -1, null);
     }
-    
-    public void setDofs(JointType type, Dof[] dofs){
-        _dofs[0].copy(_dofs[0]);
-        _dofs[1].copy(_dofs[1]);
-        _dofs[2].copy(_dofs[2]);
+
+    public void setDofs(JointType type, Dof[] dofs) {
+        if (dofs[0] != null) {
+            _dofs[0].copy(dofs[0]);
+        }
+        if (dofs[1] != null) {
+            _dofs[1].copy(dofs[1]);
+        }
+        if (dofs[2] != null) {
+            _dofs[2].copy(dofs[2]);
+        }
         _type = type;
     }
-    
-    public void updateDof(int idx, double value){
+
+    public void updateDof(int idx, double value) {
         _dofs[idx].setValue(value);
     }
 
@@ -102,7 +116,7 @@ public class Joint {
             _skeleton._children.get(parent._id).add(_id);
         }
     }
-    
+
     public void setParent(int parent) {
         if (parent != -1) {
             _skeleton._parentJ.set(_id, parent);
@@ -116,7 +130,7 @@ public class Joint {
     public int getId() {
         return _id;
     }
-    
+
     public Joint getParent() {
         return _skeleton.getJoint(_skeleton._parentJ.get(_id));
     }
@@ -153,9 +167,9 @@ public class Joint {
     }
 
     public void setLocalPosition(ColumnVector3 translation) {
-        _skeleton._localPosition.get(_id).set(0,translation.x());
-        _skeleton._localPosition.get(_id).set(1,translation.y());
-        _skeleton._localPosition.get(_id).set(2,translation.z());
+        _skeleton._localPosition.get(_id).set(0, translation.x());
+        _skeleton._localPosition.get(_id).set(1, translation.y());
+        _skeleton._localPosition.get(_id).set(2, translation.z());
     }
 
     public ColumnVector3 getLocalPosition() {
