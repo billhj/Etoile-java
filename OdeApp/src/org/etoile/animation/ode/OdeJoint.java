@@ -36,9 +36,9 @@ public class OdeJoint {
     private OdeRigidBody _body1;
     private OdeRigidBody _body2;
 
-    protected DVector3 _axis0 = new DVector3(0, 0, 1);
+    protected DVector3 _axis0 = new DVector3(1, 0, 0);
     protected DVector3 _axis1 = new DVector3(0, 1, 0);
-    protected DVector3 _axis2 = new DVector3(1, 0, 0);
+    protected DVector3 _axis2 = new DVector3(0, 0, 1);
 
     protected double[] color = new double[]{1, 0, 0, 1.0};
 
@@ -279,16 +279,6 @@ public class OdeJoint {
         res = QuaternionD.multiplication(ax0, ax1);
         res = QuaternionD.multiplication(res, ax2);
         return res;
-    }
-
-    public void setRotation(QuaternionD r) {
-        if (_axis0.get2() != 1) {
-            throw new RuntimeException("rotation order is wrong");
-        }
-        DVector3 rotation = r.getEulerAngleXYZ();
-        setAngle(0, rotation.get2());
-        setAngle(1, rotation.get1());
-        setAngle(2, rotation.get0());
     }
 
     public DJoint getJoint() {

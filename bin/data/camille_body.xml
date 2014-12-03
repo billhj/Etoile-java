@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<humanoid>
+<body name="" start="HumanoidRoot" end="skullbase" mass="37.872257" color="1 0 0 1"/>
+
+<joint name="" start="" end="" type="" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="" hiStop0="" loStop1="" hiStop1="" loStop2="" hiStop2=""/>
+</humanoid>
