@@ -40,4 +40,9 @@ public class RowVector extends AbstractRowVector<RowVector> {
         return v;
     }
 
+    public void getData(double[] data){
+       for(int i = 0; i < getDimension(); ++i){
+           data[i] = _data[0][i]; 
+       }
+    }
 }

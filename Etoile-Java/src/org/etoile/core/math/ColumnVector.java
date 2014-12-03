@@ -40,4 +40,9 @@ public class ColumnVector extends AbstractColumnVector<ColumnVector> {
         return v;
     }
 
+    public void getData(double[] data){
+       for(int i = 0; i < getDimension(); ++i){
+           data[i] = _data[i][0]; 
+       }
+    }
 }
