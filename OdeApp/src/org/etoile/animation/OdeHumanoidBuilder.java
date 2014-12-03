@@ -21,30 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.etoile.animation.demo;
+package org.etoile.animation;
 
-import org.etoile.animation.ode.OdePhysicsEnvironment;
-import org.etoile.animation.ode.SimpleOdeCollision;
+import org.etoile.animation.ode.OdeHumanoid;
+import org.etoile.core.animation.Skeleton;
 
 /**
  *
- * @author huang
+ * @author Jing Huang
+ * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
-public class OdeDemoEnvironment extends OdePhysicsEnvironment{
-
-    public OdeDemoEnvironment(){
-        super();
-        _id = "OdeDemoEnvironment";
-    }
+public class OdeHumanoidBuilder {
+    public void load(Skeleton sk, OdeHumanoid human){
     
-    @Override
-    public void physicsSimulationStep() {
-        super.physicsSimulationStep();
-    }
-    
-    void setSimpleOdeCollision(SimpleOdeCollision collision){
-        collision.setSpace(_space);
-        collision.setWorld(_world);
-        _collision = collision;
     }
 }
