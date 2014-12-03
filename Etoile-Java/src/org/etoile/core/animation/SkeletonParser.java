@@ -100,7 +100,7 @@ public class SkeletonParser {
 
         Skeleton skeleton = new Skeleton("test");
         SkeletonParser parser = new SkeletonParser();
-        if (parser.loadFile("C:\\Users\\Jing\\Desktop\\greta_svn\\java\\bin\\BehaviorRealizer\\Skeleton\\greta_skeleton.xml")) {
+        if (parser.loadFile("../bin/data/camille_skeleton.xml")) {
             parser.readSkeletonInfo(skeleton);
             System.out.println("finish loading skeleton");
         }
