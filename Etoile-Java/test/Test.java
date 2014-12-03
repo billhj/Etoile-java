@@ -18,8 +18,8 @@ public class Test {
      */
     public static void main(final String[] args) {
         Quaternion q = new Quaternion();
-        q.setAxisAngle(new ColumnVector3(1,0,0), 3.14);
-        ColumnVector3 v0 = new ColumnVector3(0,2,0);
+        q.setAxisAngle(new ColumnVector3(1,0.5,-0.3), 1);
+        ColumnVector3 v0 = new ColumnVector3(3,9,-10);
         ColumnVector3 v1 = q.multiply(v0);
         Matrix33 m = q.getRotationMatrix();
         ColumnVector3 v2 = m.multiply(v0);

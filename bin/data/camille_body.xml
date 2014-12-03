@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <humanoid>
-<body name="" start="HumanoidRoot" end="skullbase" mass="37.872257" color="1 0 0 1"/>
+<body name="upper_leg_l" start="l_hip" end="l_knee" mass="8" color="1 0 0 1"/>
+<body name="upper_leg_r" start="r_hip" end="r_knee" mass="8" color="1 0 0 1"/>
+<body name="lower_leg_l" start="l_knee" end="l_ankle" mass="3" color="1 0 0 1"/>
+<body name="lower_leg_r" start="r_knee" end="r_ankle" mass="3" color="1 0 0 1"/>
+<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="1 0 0 1"/>
+<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="1 0 0 1"/>
+<body name="lower_torso" start="HumanoidRoot" end="vl1" mass="10" color="1 0 0 1"/>
+<body name="upper_torso" start="vl1" end="vc7" mass="1" color="1 0 0 1"/>
 
-<joint name="" start="" end="" type="" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="" hiStop0="" loStop1="" hiStop1="" loStop2="" hiStop2=""/>
+<joint name="vl1" start="lower_torso" end="upper_torso" type="UNIVERSAL" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="-1" hiStop0="1" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="1"/>
+<joint name="l_hip" start="lower_torso" end="upper_leg_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="-1" hiStop0="1" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="1"/>
+<joint name="r_hip" start="lower_torso" end="upper_leg_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="-1" hiStop0="1" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="1"/>
+<joint name="l_knee" start="upper_leg_l" end="lower_leg_l" type="HINGE" axis0="1 0 0"  loStop0="-1" hiStop0="1" />
+<joint name="r_knee" start="upper_leg_r" end="lower_leg_r" type="HINGE" axis0="1 0 0"  loStop0="-1" hiStop0="1" />
+<joint name="l_ankle" start="lower_leg_l" end="foot_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="-1" hiStop0="1" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="1"/>
+<joint name="r_ankle" start="lower_leg_r" end="foot_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 1 0" axis2="0 0 1" loStop0="-1" hiStop0="1" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="1"/>
 </humanoid>
