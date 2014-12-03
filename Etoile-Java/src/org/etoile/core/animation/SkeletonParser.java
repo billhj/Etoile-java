@@ -20,8 +20,8 @@ public class SkeletonParser {
 
     String _filepath = "";
     XMLTree _tree;
-    HashMap<String, Integer> _xmljointNameMap = new HashMap<String, Integer>();
-    ArrayList<String> _builtJointsNames = new ArrayList<String>();
+    HashMap<String, Integer> _xmljointNameMap = new HashMap<>();
+    ArrayList<String> _builtJointsNames = new ArrayList<>();
 
     public boolean loadFile(String filepath) {
 
@@ -37,31 +37,27 @@ public class SkeletonParser {
         XMLTree rootNode = _tree.getRootNode();
         List<XMLTree> list = rootNode.getChildrenElement();
         skeleton.clearAll();
-        for (int i = 0; i < list.size(); i++) {
-            XMLTree node = list.get(i);
+        for (XMLTree node : list) {
             if (node.getName().equals("bones")) {
                 List<XMLTree> listBones = node.getChildrenElement();
-                for (int j = 0; j < listBones.size(); j++) {
-                    XMLTree nodebone = listBones.get(j);
+                for (XMLTree nodebone : listBones) {
                     if (nodebone.getName().equals("bone")) {
                         readJoint(nodebone, skeleton);
                     }
                 }
             }
-
-
-
+            
+            
+            
             if (node.getName().equals("bonehierarchy")) {
                 List<XMLTree> listBones = node.getChildrenElement();
-                for (int j = 0; j < listBones.size(); j++) {
-                    XMLTree nodebone = listBones.get(j);
+                for (XMLTree nodebone : listBones) {
                     if (nodebone.getName().equals("boneparent")) {
                         readJointHierarchy(nodebone, skeleton);
                     }
                 }
 
             }
-
         }
 
         for(Joint j : skeleton.getJoints()){
