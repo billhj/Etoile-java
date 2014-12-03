@@ -11,6 +11,8 @@ import org.etoile.animation.ode.OdePhysicsEnvironment;
 import org.etoile.animation.ode.OdeRigidBody;
 import org.etoile.animation.ode.QuaternionD;
 import java.util.List;
+import org.etoile.core.animation.Skeleton;
+import org.etoile.core.animation.SkeletonParser;
 import org.ode4j.drawstuff.DrawStuff;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawCapsule;
@@ -205,6 +207,15 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         dsSimulationLoop(args, 1024, 768, this);
         if (_env != null) {
             _env.release();
+        }
+    }
+    
+    private void initCharacter(){
+        Skeleton skeleton = new Skeleton("test");
+        SkeletonParser parser = new SkeletonParser();
+        if (parser.loadFile("../bin/data/camille_skeleton.xml")) {
+            parser.readSkeletonInfo(skeleton);
+            System.out.println("finish loading skeleton");
         }
     }
 
