@@ -203,6 +203,7 @@ public class OdeViewer extends DrawStuff.dsFunctions {
     private void demo(String[] args) {
         _env = new OdeDemoEnvironment();
         _env.setPause(true);
+        initCharacter();
         ((OdeDemoEnvironment) _env).setSimpleOdeCollision(new DemoSimpleOdeCollision());
         dsSimulationLoop(args, 1024, 768, this);
         if (_env != null) {
