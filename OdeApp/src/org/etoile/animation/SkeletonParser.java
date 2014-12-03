@@ -21,12 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.etoile.core.animation;
+package org.etoile.animation;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.etoile.core.animation.Joint;
+import org.etoile.core.animation.Skeleton;
 import org.etoile.core.math.ColumnVector3;
 import vib.core.util.xml.XML;
 import vib.core.util.xml.XMLParser;
