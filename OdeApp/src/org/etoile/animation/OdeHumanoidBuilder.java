@@ -23,6 +23,7 @@
  */
 package org.etoile.animation;
 
+import java.util.List;
 import org.etoile.animation.ode.OdeHumanoid;
 import org.etoile.core.animation.Skeleton;
 import vib.core.util.xml.XML;
@@ -47,8 +48,30 @@ public class OdeHumanoidBuilder {
     }
     
     public boolean buildBodyFromSkeleton(Skeleton sk, OdeHumanoid human){
-        
-        
+        XMLTree rootNode = _tree.getRootNode();
+        List<XMLTree> list = rootNode.getChildrenElement();
+        for (XMLTree node : list) {
+            if (node.getName().equals("bodys")) {
+                List<XMLTree> listBodys = node.getChildrenElement();
+                for (XMLTree nodebone : listBodys) {
+                    if (nodebone.getName().equals("body")) {
+                        
+                    }
+                }
+            }
+            
+            
+            
+            if (node.getName().equals("joints")) {
+                List<XMLTree> listJoints = node.getChildrenElement();
+                for (XMLTree nodejoint : listJoints) {
+                    if (nodejoint.getName().equals("joint")) {
+                        
+                    }
+                }
+
+            }
+        }
         return true;
     }
 }
