@@ -208,7 +208,7 @@ public class OdeHumanoidBuilder {
         inertia.set(1, 1, mass / 12.0f * (z * z + x * x));
         inertia.set(2, 2, mass / 12.0f * (x * x + y * y));
         Matrix33 rotationT = new Matrix33();
-        rotationT.copyData(rotation.transpose());
+        rotationT.set(rotation.transpose());
         inertia = rotation.multiply(inertia.multiply(rotationT));
         return inertia;
     }

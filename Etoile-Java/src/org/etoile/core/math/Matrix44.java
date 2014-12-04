@@ -33,6 +33,10 @@ public class Matrix44 extends AbstractMatrixNN<Matrix44> {
         super(4);
     }
 
+    public Matrix44(MatrixBase arv) {
+        super(arv);
+    }
+    
     public ColumnVector4 multiply(ColumnVector4 v){
         ColumnVector4 answer = new ColumnVector4();
         answer.set(super.multiply(v));
@@ -40,7 +44,7 @@ public class Matrix44 extends AbstractMatrixNN<Matrix44> {
     }
             
     @Override
-    public Matrix44 copyData(MatrixBase arv) {
+    protected Matrix44 copyData(MatrixBase arv) {
         Matrix44 m = new Matrix44();
         m.set(arv);
         return m;

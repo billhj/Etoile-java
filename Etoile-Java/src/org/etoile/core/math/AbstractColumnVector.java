@@ -35,7 +35,7 @@ public abstract class AbstractColumnVector<V extends AbstractColumnVector> exten
         super(rows, 1);
     }
     
-    abstract V copyData(MatrixBase arv);
+    protected abstract V copyData(MatrixBase arv);
     
     public int getDimension(){
         return getRows();

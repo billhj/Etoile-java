@@ -34,7 +34,12 @@ public abstract class AbstractMatrixNN <M extends AbstractMatrixNN> extends Matr
         super(dimension, dimension);
     }
     
-    public abstract M copyData(MatrixBase arv);
+    public AbstractMatrixNN(MatrixBase arv) {
+        this(arv.getRows());
+        set(arv);
+    }
+    
+    protected abstract M copyData(MatrixBase arv);
     
     public int getDimension(){
         return getColumns();

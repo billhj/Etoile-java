@@ -32,6 +32,10 @@ public class Matrix33 extends AbstractMatrixNN<Matrix33> {
     public Matrix33() {
         super(3);
     }
+    
+    public Matrix33(MatrixBase arv) {
+        super(arv);
+    }
 
     public ColumnVector3 multiply(ColumnVector3 v){
         ColumnVector3 answer = new ColumnVector3();
@@ -40,7 +44,7 @@ public class Matrix33 extends AbstractMatrixNN<Matrix33> {
     }
     
     @Override
-    public Matrix33 copyData(MatrixBase arv) {
+    protected Matrix33 copyData(MatrixBase arv) {
         Matrix33 m = new Matrix33();
         m.set(arv);
         return m;

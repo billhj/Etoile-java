@@ -49,7 +49,7 @@ public class ColumnVector4 extends AbstractColumnVector<ColumnVector4> {
     }
     
     @Override
-    ColumnVector4 copyData(MatrixBase arv) {
+    protected ColumnVector4 copyData(MatrixBase arv) {
         ColumnVector4 v = new ColumnVector4();
         v.set(arv);
         return v;

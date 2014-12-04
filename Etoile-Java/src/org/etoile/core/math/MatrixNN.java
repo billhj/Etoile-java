@@ -32,9 +32,13 @@ public class MatrixNN extends AbstractMatrixNN<MatrixNN>{
     public MatrixNN(int dimension) {
         super(dimension);
     }
+    
+    public MatrixNN(MatrixBase arv) {
+        super(arv);
+    }
 
     @Override
-    public MatrixNN copyData(MatrixBase arv) {
+    protected MatrixNN copyData(MatrixBase arv) {
         MatrixNN m = new MatrixNN(arv.getRows());
         m.set(arv);
         return m;
