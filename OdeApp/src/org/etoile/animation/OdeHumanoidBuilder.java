@@ -116,7 +116,7 @@ public class OdeHumanoidBuilder {
         body.setPosition(com.get(0) + offset[0], com.get(1) + offset[1], com.get(2) + offset[2]);
         double[] data = new double[9];
         inertia.getData(data);
-        DMatrix3 I = DMatrix3.wrap(data);
+        DMatrix3 I = new DMatrix3(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7],data[8]);
         body.setInertiaTensor(I);
         DBox boxD = OdeHelper.createBox(box[0], box[1], box[2]);
         body.setGeom(boxD);
