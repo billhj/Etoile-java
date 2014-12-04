@@ -100,7 +100,7 @@ public abstract class AbstractColumnVector<V extends AbstractColumnVector> exten
     
     @Override
     public String toString(){
-        String out = "[\n";
+        String out = "\n[\n";
         for(int i = 0; i < getDimension(); ++i){
             out +=get(i) + "\n";
         }

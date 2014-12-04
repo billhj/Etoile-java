@@ -100,7 +100,7 @@ public abstract class AbstractRowVector<V extends AbstractRowVector> extends Mat
     
     @Override
     public String toString(){
-        String out = "[\n";
+        String out = "\n[\n";
         for(int i = 0; i < getDimension(); ++i){
             out +=get(i) + " ";
         }

@@ -25,7 +25,8 @@ package org.etoile.core.math;
 
 /**
  *
- * @author Jing Huang *
+ * @author Jing Huang
+ *
  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  * MatrixBase is the basic class to build the matrix operation
  */
@@ -498,5 +499,21 @@ public class MatrixBase {
         }
 
         return sum;
+    }
+
+    @Override
+    public String toString() {
+        String out = "\n[";
+        for (int y = 0; y < _rows; ++y) {
+            for (int x = 0; x < _columns; ++x) {
+                out += _data[y][x];
+            }
+            if (y < _rows - 1) {
+                out += "\n";
+            }else{
+                out += "]\n";
+            }
+        }
+        return out;
     }
 }

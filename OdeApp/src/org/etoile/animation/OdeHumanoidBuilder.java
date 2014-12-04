@@ -74,7 +74,7 @@ public class OdeHumanoidBuilder {
                 List<XMLTree> listJoints = node.getChildrenElement();
                 for (XMLTree nodejoint : listJoints) {
                     if (nodejoint.getName().equals("joint")) {
-
+                        buildJoint(nodejoint, sk, human);
                     }
                 }
             }
@@ -116,7 +116,7 @@ public class OdeHumanoidBuilder {
         body.setPosition(com.get(0) + offset[0], com.get(1) + offset[1], com.get(2) + offset[2]);
         double[] data = new double[9];
         inertia.getData(data);
-        DMatrix3 I = new DMatrix3(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7],data[8]);
+        DMatrix3 I = new DMatrix3(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
         body.setInertiaTensor(I);
         DBox boxD = OdeHelper.createBox(box[0], box[1], box[2]);
         body.setGeom(boxD);
@@ -128,6 +128,7 @@ public class OdeHumanoidBuilder {
                 body.setMotionType(OdeRigidBody.MotionType.KINEMATICS);
             }
         }
+        System.out.println(name + com);
     }
 
     protected void buildJoint(XMLTree current, Skeleton sk, OdeHumanoid human) {
@@ -156,27 +157,40 @@ public class OdeHumanoidBuilder {
         OdeJoint j = human.createJoint(name, jointType, start, end, data, axis0, axis1);
 
         {
-            double low = current.getAttributeNumber("loStop0");
-            double high = current.getAttributeNumber("hiStop0");
-            j.setJointMin(0, low);
-            j.setJointMax(0, high);
+            if (current.hasAttribute("loStop0")) {
+                double low = current.getAttributeNumber("loStop0");
+                j.setJointMin(0, low);
+            }
+            if (current.hasAttribute("hiStop0")) {
+                double high = current.getAttributeNumber("hiStop0");
+                j.setJointMax(0, high);
+            }
         }
         {
-            double low = current.getAttributeNumber("loStop1");
-            double high = current.getAttributeNumber("hiStop1");
-            j.setJointMin(1, low);
-            j.setJointMax(1, high);
+            if (current.hasAttribute("loStop1")) {
+                double low = current.getAttributeNumber("loStop1");
+                j.setJointMin(1, low);
+            }
+            if (current.hasAttribute("hiStop1")) {
+                double high = current.getAttributeNumber("hiStop1");
+                j.setJointMax(1, high);
+            }
         }
         {
-            double low = current.getAttributeNumber("loStop2");
-            double high = current.getAttributeNumber("hiStop2");
-            j.setJointMin(2, low);
-            j.setJointMax(2, high);
+            if (current.hasAttribute("loStop2")) {
+                double low = current.getAttributeNumber("loStop2");
+                j.setJointMin(2, low);
+            }
+            if (current.hasAttribute("hiStop2")) {
+                double high = current.getAttributeNumber("hiStop2");
+                j.setJointMax(2, high);
+            }
         }
 
-        double[] color = getArray(current.getAttribute("color"));
-        j.setColor(color);
-
+        if (current.hasAttribute("color")) {
+            double[] color = getArray(current.getAttribute("color"));
+            j.setColor(color);
+        }
     }
 
     public double[] getArray(String str) {

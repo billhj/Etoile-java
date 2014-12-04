@@ -200,7 +200,7 @@ public class Joint {
 
         } else {
             _skeleton._globalPosition.get(_id).set(getParent().getWorldOrientation().multiply(_skeleton._localPosition.get(_id)));
-            _skeleton._globalPosition.get(_id).add(getParent().getWorldPosition());
+            _skeleton._globalPosition.get(_id).addSelf(getParent().getWorldPosition());
             _skeleton._globalRotations.get(_id).setValue(getParent().getWorldOrientation().multiply(getLocalRotation()));
             _skeleton._globalRotations.get(_id).normalize();
         }
