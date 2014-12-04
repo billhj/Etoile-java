@@ -24,13 +24,17 @@
 package org.etoile.animation;
 
 import java.util.List;
+import org.etoile.animation.ode.JointType;
 import org.etoile.animation.ode.OdeHumanoid;
+import org.etoile.animation.ode.OdeJoint;
 import org.etoile.animation.ode.OdeRigidBody;
 import org.etoile.core.animation.Joint;
 import org.etoile.core.animation.Skeleton;
 import org.etoile.core.math.ColumnVector3;
 import org.etoile.core.math.Matrix33;
 import org.ode4j.math.DMatrix3;
+import org.ode4j.ode.DBox;
+import org.ode4j.ode.OdeHelper;
 import vib.core.util.xml.XML;
 import vib.core.util.xml.XMLParser;
 import vib.core.util.xml.XMLTree;
@@ -83,7 +87,9 @@ public class OdeHumanoidBuilder {
         String start = current.getAttribute("start");
         String end = current.getAttribute("end");
         double mass = current.getAttributeNumber("mass");
-        
+        double[] offset = getArray(current.getAttribute("offset"));
+        String motiontype = current.getAttribute("motiontype");
+
         Joint startJ = sk.getJoint(start);
         Joint endJ = sk.getJoint(end);
         ColumnVector3 startP = startJ.getWorldPosition();
@@ -91,49 +97,92 @@ public class OdeHumanoidBuilder {
         ColumnVector3 com = startP.add(endP);
         com.divideSelf(2);
         ColumnVector3 dir = endP.substract(startP);
-        double[] box = {Math.abs(dir.x()),Math.abs(dir.y()),Math.abs(dir.z())};
+        double[] box = {Math.abs(dir.x()), Math.abs(dir.y()), Math.abs(dir.z())};
         if (box[0] < 0.1) {
             box[0] = 0.1;
-        } 
+        }
         if (box[1] < 0.1) {
             box[1] = 0.1;
-        } 
+        }
         if (box[2] < 0.1) {
             box[2] = 0.1;
-        } 
-        Matrix33 inertia = generateRotationInertia(box[0], box[1], box[2], mass, dir, new ColumnVector3(0,1,0));
-        
+        }
+        Matrix33 inertia = generateRotationInertia(box[0], box[1], box[2], mass, dir, new ColumnVector3(0, 1, 0));
+
         double[] color = getArray(current.getAttribute("color"));
-        
+
         OdeRigidBody body = human.createBody(name);
         body.setMass(mass);
-        body.setPosition(com.get(0),com.get(1),com.get(2));
-        DMatrix3 I = new DMatrix3();
-        inertia.
-        I.set(bi._I[0], bi._I[1], bi._I[2], bi._I[3], bi._I[4], bi._I[5], bi._I[6], bi._I[7], bi._I[8]);
-            body.setInertiaTensor(I);
-            DBox box = OdeHelper.createBox(bi._box[0], bi._box[1], bi._box[2]);
-            body.setGeom(box);
-            body.setColor(bi._color);
-            body.setMotionType(bi._motiontype);
-        
-        
+        body.setPosition(com.get(0) + offset[0], com.get(1) + offset[1], com.get(2) + offset[2]);
+        double[] data = new double[9];
+        inertia.getData(data);
+        DMatrix3 I = DMatrix3.wrap(data);
+        body.setInertiaTensor(I);
+        DBox boxD = OdeHelper.createBox(box[0], box[1], box[2]);
+        body.setGeom(boxD);
+        body.setColor(color);
+        if (motiontype != null) {
+            if (motiontype.equalsIgnoreCase("dynamics")) {
+                body.setMotionType(OdeRigidBody.MotionType.DYNAMICS);
+            } else if (motiontype.equalsIgnoreCase("kinematics")) {
+                body.setMotionType(OdeRigidBody.MotionType.KINEMATICS);
+            }
+        }
     }
-    
+
     protected void buildJoint(XMLTree current, Skeleton sk, OdeHumanoid human) {
         String name = current.getAttribute("name");
         String start = current.getAttribute("start");
         String end = current.getAttribute("end");
         String type = current.getAttribute("type");
-        
-        
-        
+
+        Joint joint = sk.getJoint(name);
+        ColumnVector3 pos = joint.getPosition();
+        double[] data = new double[3];
+        pos.getData(data);
+        JointType jointType = JointType.HINGE;
+        if (type.equalsIgnoreCase("HINGE")) {
+            jointType = JointType.HINGE;
+        } else if (type.equalsIgnoreCase("UNIVERSAL")) {
+            jointType = JointType.UNIVERSAL;
+        } else if (type.equalsIgnoreCase("BALL")) {
+            jointType = JointType.BALL;
+        } else if (type.equalsIgnoreCase("FIXED")) {
+            jointType = JointType.FIXED;
+        }
+        double[] axis0 = getArray(current.getAttribute("axis0"));
+        double[] axis1 = getArray(current.getAttribute("axis1"));
+        //double[] axis2 = getArray(current.getAttribute("axis2"));
+        OdeJoint j = human.createJoint(name, jointType, start, end, data, axis0, axis1);
+
+        {
+            double low = current.getAttributeNumber("loStop0");
+            double high = current.getAttributeNumber("hiStop0");
+            j.setJointMin(0, low);
+            j.setJointMax(0, high);
+        }
+        {
+            double low = current.getAttributeNumber("loStop1");
+            double high = current.getAttributeNumber("hiStop1");
+            j.setJointMin(1, low);
+            j.setJointMax(1, high);
+        }
+        {
+            double low = current.getAttributeNumber("loStop2");
+            double high = current.getAttributeNumber("hiStop2");
+            j.setJointMin(2, low);
+            j.setJointMax(2, high);
+        }
+
         double[] color = getArray(current.getAttribute("color"));
-        
+        j.setColor(color);
+
     }
 
     public double[] getArray(String str) {
-        if(str.isEmpty()) return null;
+        if (str.isEmpty()) {
+            return null;
+        }
         String[] parts = str.split(" ");
         double[] value = new double[parts.length];
         int i = 0;
@@ -143,8 +192,7 @@ public class OdeHumanoidBuilder {
         }
         return value;
     }
-    
-    
+
     public static Matrix33 generateRotationInertia(double x, double y, double z, double mass, ColumnVector3 dir, ColumnVector3 dirOriginal) {
         dir.normalize();
         dirOriginal.normalize();
