@@ -25,7 +25,8 @@ package org.etoile.core.math;
 
 /**
  *
- * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr> 
+ * @author Jing Huang *
+ * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  * MatrixBase is the basic class to build the matrix operation
  */
 public class MatrixBase {
@@ -72,6 +73,16 @@ public class MatrixBase {
 
     public void setData(double[][] data) {
         this._data = data;
+    }
+
+    public void getData(double[] data) {
+        int i = 0;
+        for (int y = 0; y < _rows; ++y) {
+            for (int x = 0; x < _columns; ++x) {
+                data[i] = _data[y][x];
+                i++;
+            }
+        }
     }
 
     public int getColumns() {
