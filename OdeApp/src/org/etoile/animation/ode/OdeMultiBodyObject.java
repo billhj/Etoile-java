@@ -52,9 +52,9 @@ public class OdeMultiBodyObject {
         return body;
     }
 
-    public OdeJoint createJoint(String name, JointType type, OdeRigidBody b1, OdeRigidBody b2, double[] anchor, double[] axis0, double[] axis1) {
+    public OdeJoint createJoint(String name, JointType type, OdeRigidBody child, OdeRigidBody parent, double[] anchor, double[] axis0, double[] axis1) {
         OdeJoint joint = _env.createJoint(name, type, _jointGroup);
-        joint.attach(b1, b2);
+        joint.attachChildToParent(child, parent);
         _jointIds.put(name, joint.getId());
         if (anchor != null) {
             joint.setJointAnchor(0, anchor[0], anchor[1], anchor[2]);
@@ -70,9 +70,9 @@ public class OdeMultiBodyObject {
         return joint;
     }
     
-    public OdeJoint createJoint(String name, JointType type, String b1name, String b2name, double[] anchor, double[] axis0, double[] axis1) {
-        Integer bn1 = _bodyIds.get(b1name);
-        Integer bn2 = _bodyIds.get(b2name);
+    public OdeJoint createJoint(String name, JointType type, String child, String parent, double[] anchor, double[] axis0, double[] axis1) {
+        Integer bn1 = _bodyIds.get(child);
+        Integer bn2 = _bodyIds.get(parent);
         OdeRigidBody b1 = null;
         OdeRigidBody b2 = null;
         if (bn1 != null) {

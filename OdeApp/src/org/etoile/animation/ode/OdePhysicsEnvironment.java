@@ -30,9 +30,9 @@ public class OdePhysicsEnvironment {
     protected DPlane _ground;
     protected DJointGroup _joints;
     protected double[] _gravity = {0, -9.8, 0};
-    protected List<OdeRigidBody> _rigidBodies = new ArrayList<OdeRigidBody>();
-    protected List<OdeJoint> _odejoints = new ArrayList<OdeJoint>();
-    protected List<BaseController> _controllers = new ArrayList<BaseController>();
+    protected List<OdeRigidBody> _rigidBodies = new ArrayList<>();
+    protected List<OdeJoint> _odejoints = new ArrayList<>();
+    protected List<BaseController> _controllers = new ArrayList<>();
     protected BaseCollision _collision;
 
     protected boolean _debug = false;
@@ -71,7 +71,7 @@ public class OdePhysicsEnvironment {
     public void physicsTick() {
         if (!_pause) {
             if (_debug) {
-                long startTime = System.currentTimeMillis();
+                startTime = System.currentTimeMillis();
             }
             if (_doCollision) {
                 _collision.startCollision();

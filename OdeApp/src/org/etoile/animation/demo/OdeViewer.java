@@ -137,13 +137,6 @@ public class OdeViewer extends DrawStuff.dsFunctions {
                     break;
                 }
             }
-
-//            if(j.getName().equalsIgnoreCase("lower_torso")){
-//                QuaternionD d = new QuaternionD();
-//                d.setAxisAngle(new DVector3(0,0,1), 0.5);
-//                //j.setRotation(d);
-//                j.addTorque(-1000, 0, 0);
-//            }
         }
     }
 

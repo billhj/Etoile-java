@@ -28,8 +28,9 @@ public class OdeRigidBody {
     protected DGeom _geom = null;
     protected String _name;
     protected int _id;
-    protected double[] color = new double[]{1, 1, 0, 0.5};
-    protected MotionType _motiontype = MotionType.KINEMATICS;
+    protected double[] _color = new double[]{1, 1, 0, 0.5};
+    protected MotionType _motiontype = MotionType.DYNAMICS;
+    protected double[] _com_localposition = new double[3];
     
     public enum MotionType {
         KINEMATICS,
@@ -242,18 +243,18 @@ public class OdeRigidBody {
     }
 
     public double[] getColor() {
-        return color;
+        return _color;
     }
 
     public void setColor(double[] color) {
-        this.color = color;
+        this._color = color;
     }
 
     public void setColor(double r, double g, double b, double a) {
-        this.color[0] = r;
-        this.color[1] = g;
-        this.color[2] = b;
-        this.color[3] = a;
+        this._color[0] = r;
+        this._color[1] = g;
+        this._color[2] = b;
+        this._color[3] = a;
     }
     
     public void setMotionType(MotionType type){
@@ -276,4 +277,15 @@ public class OdeRigidBody {
     public boolean isCollisionEnabled(){
         return _geom.isEnabled();
     }
+
+    public double[] getCom_localposition() {
+        return _com_localposition;
+    }
+
+    public void setCom_localposition(double x, double y, double z) {
+        this._com_localposition[0] = x;
+        this._com_localposition[1] = y;
+        this._com_localposition[2] = z;
+    }
+    
 }

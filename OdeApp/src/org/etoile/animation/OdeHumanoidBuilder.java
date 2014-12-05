@@ -88,7 +88,6 @@ public class OdeHumanoidBuilder {
         String end = current.getAttribute("end");
         double mass = current.getAttributeNumber("mass");
         double[] offset = getArray(current.getAttribute("offset"));
-        String motiontype = current.getAttribute("motiontype");
 
         Joint startJ = sk.getJoint(start);
         Joint endJ = sk.getJoint(end);
@@ -109,26 +108,31 @@ public class OdeHumanoidBuilder {
         }
         Matrix33 inertia = generateRotationInertia(box[0], box[1], box[2], mass, dir, new ColumnVector3(0, 1, 0));
 
-        double[] color = getArray(current.getAttribute("color"));
-
         OdeRigidBody body = human.createBody(name);
         body.setMass(mass);
         body.setPosition(com.get(0) + offset[0], com.get(1) + offset[1], com.get(2) + offset[2]);
+        body.setCom_localposition(dir.x() * 0.5 + offset[0], dir.y() * 0.5 + offset[1], dir.z() * 0.5 + offset[2]);
         double[] data = new double[9];
         inertia.getData(data);
         DMatrix3 I = new DMatrix3(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
         body.setInertiaTensor(I);
         DBox boxD = OdeHelper.createBox(box[0], box[1], box[2]);
         body.setGeom(boxD);
-        body.setColor(color);
-        if (motiontype != null) {
+        if (current.hasAttribute("color")) {
+            double[] color = getArray(current.getAttribute("color"));
+            body.setColor(color);
+        } else {
+            body.setColor(new double[]{0.5, 0.5, 0.5, 0.5});
+        }
+        if (current.hasAttribute("motiontype")) {
+            String motiontype = current.getAttribute("motiontype");
             if (motiontype.equalsIgnoreCase("dynamics")) {
                 body.setMotionType(OdeRigidBody.MotionType.DYNAMICS);
             } else if (motiontype.equalsIgnoreCase("kinematics")) {
                 body.setMotionType(OdeRigidBody.MotionType.KINEMATICS);
             }
         }
-        System.out.println(name + com);
+        //System.out.println(name + com);
     }
 
     protected void buildJoint(XMLTree current, Skeleton sk, OdeHumanoid human) {
@@ -151,10 +155,16 @@ public class OdeHumanoidBuilder {
         } else if (type.equalsIgnoreCase("FIXED")) {
             jointType = JointType.FIXED;
         }
-        double[] axis0 = getArray(current.getAttribute("axis0"));
-        double[] axis1 = getArray(current.getAttribute("axis1"));
+        double[] axis0 = null;
+        if (current.hasAttribute("axis0")) {
+            axis0 = getArray(current.getAttribute("axis0"));
+        }
+        double[] axis1 = null;
+        if (current.hasAttribute("axis1")) {
+            axis1 = getArray(current.getAttribute("axis1"));
+        }
         //double[] axis2 = getArray(current.getAttribute("axis2"));
-        OdeJoint j = human.createJoint(name, jointType, start, end, data, axis0, axis1);
+        OdeJoint j = human.createJoint(name, jointType, end, start, data, axis0, axis1);
 
         {
             if (current.hasAttribute("loStop0")) {
@@ -190,6 +200,8 @@ public class OdeHumanoidBuilder {
         if (current.hasAttribute("color")) {
             double[] color = getArray(current.getAttribute("color"));
             j.setColor(color);
+        } else {
+            j.setColor(new double[]{0.5, 0.0, 0.0, 0.9});
         }
     }
 

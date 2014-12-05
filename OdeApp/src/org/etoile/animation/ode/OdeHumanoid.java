@@ -35,8 +35,6 @@ public class OdeHumanoid extends OdeMultiBodyObject{
     protected double[] _COM = new double[3];
     protected double[] _COMDiff = new double[3];
     protected double[] _rootOffset = new double[3];
-    protected double[] _externalCOM = new double[3];
-    protected double _externalMass = 0;
     protected double[] _roottranslation = new double[3];
     
     public OdeHumanoid(OdePhysicsEnvironment env) {
@@ -52,20 +50,6 @@ public class OdeHumanoid extends OdeMultiBodyObject{
         double[] posr = {fr.getPosition().get0(),fr.getPosition().get1(),fr.getPosition().get2()};
         OdeJoint fixl = createJoint("fix_l_foot", JointType.FIXED, fl, null, posl, null, null);
         OdeJoint fixr = createJoint("fix_r_foot", JointType.FIXED, fr, null, posr, null, null);
-    }
-    
-    public void addExternalCOMterm(double[] externalCOM, double externalMass){
-        OdeRigidBody fl = _env.getBody(_bodyIds.get("foot_l"));
-        _externalCOM = externalCOM;
-        _externalMass = externalMass;
-    }
-    
-    public void addLocalExternalCOMterm(double[] externalCOM, double externalMass){
-        computeRootTranslation();
-        _externalCOM[0] = _roottranslation[0] + externalCOM[0];
-        _externalCOM[1] = _roottranslation[1] + externalCOM[1];
-        _externalCOM[2] = _roottranslation[2] + externalCOM[2];
-        _externalMass = externalMass;
     }
     
     public void setRootOffset(double x, double y, double z){
@@ -105,9 +89,6 @@ public class OdeHumanoid extends OdeMultiBodyObject{
             center.add(pos.reScale(mass));
             totalMass += mass;
         }
-        totalMass += _externalMass;
-        DVector3C pos = new DVector3(_externalCOM[0] * _externalMass, _externalCOM[1]*_externalMass, _externalCOM[2]*_externalMass);
-        center.add(pos);
         center.scale(1.0/totalMass);
         
         if(dt == 0){

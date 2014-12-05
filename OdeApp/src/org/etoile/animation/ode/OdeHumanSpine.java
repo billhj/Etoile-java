@@ -34,9 +34,9 @@ public class OdeHumanSpine {
         return body;
     }
 
-    public OdeJoint createJoint(String name, JointType type, OdeRigidBody b1, OdeRigidBody b2, double[] anchor, double[] axis0, double[] axis1) {
+    public OdeJoint createJoint(String name, JointType type, OdeRigidBody child, OdeRigidBody parent, double[] anchor, double[] axis0, double[] axis1) {
         OdeJoint joint = _env.createJoint(name, type, _jointGroup);
-        joint.attach(b1, b2);
+        joint.attachChildToParent(child, parent);
         _jointIds.put(name, joint.getId());
         if (anchor != null) {
             joint.setJointAnchor(0, anchor[0], anchor[1], anchor[2]);
