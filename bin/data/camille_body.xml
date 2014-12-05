@@ -12,8 +12,8 @@
 </bodys>
 <joints>
 	<joint name="vl1" start="lower_torso" end="upper_torso" type="BALL"  loStop0="-1" hiStop0="1" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="1"/>
-	<joint name="l_hip" start="lower_torso" end="upper_leg_l" type="BALL" loStop0="-1" hiStop0="0" loStop1="-1" hiStop1="1" loStop2="-0.5" hiStop2="1"/>
-	<joint name="r_hip" start="lower_torso" end="upper_leg_r" type="BALL" loStop0="-1" hiStop0="0" loStop1="-1" hiStop1="1" loStop2="-1" hiStop2="0.5"/>
+	<joint name="l_hip" start="lower_torso" end="upper_leg_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStop0="-1" hiStop0="0"  loStop1="-0.5" hiStop1="1"/>
+	<joint name="r_hip" start="lower_torso" end="upper_leg_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStop0="-1" hiStop0="0"  loStop1="-1" hiStop1="0.5"/>
 	<joint name="l_knee" start="upper_leg_l" end="lower_leg_l" type="HINGE" axis0="1 0 0"  loStop0="0" hiStop0="2" />
 	<joint name="r_knee" start="upper_leg_r" end="lower_leg_r" type="HINGE" axis0="1 0 0"  loStop0="0" hiStop0="2" />
 	<joint name="l_ankle" start="lower_leg_l" end="foot_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStop0="-0.5" hiStop0="0.5" loStop1="-0.5" hiStop1="0.5"/>
