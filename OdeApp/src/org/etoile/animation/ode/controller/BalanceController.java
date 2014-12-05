@@ -142,7 +142,7 @@ public class BalanceController implements BaseController {
         if (pelH >= ul + ll) {
             hipD = 0;
         } else {
-            hipD = (float) Math.acos((ul * ul - ll * ll + pelH * pelH) / (2 * ul * pelH));
+            hipD = Math.acos((ul * ul - ll * ll + pelH * pelH) / (2 * ul * pelH));
         }
         //System.out.println("hipD " + hipD);
 
@@ -167,15 +167,15 @@ public class BalanceController implements BaseController {
         double dHipLZ = 0;
         double rHipOldZ = rHipCZ;
         double lHipOldZ = lHipCZ;
-        lHipCZ = leftHip.getAngle(2);
-        rHipCZ = rightHip.getAngle(2);
+        lHipCZ = -leftHip.getAngle(2);
+        rHipCZ = -rightHip.getAngle(2);
         dHipRZ = (rHipCZ - rHipOldZ) / dt;
         dHipLZ = (lHipCZ - lHipOldZ) / dt;
 
         torqueL = (hipDZ - lHipCZ) * s * khz - dHipLZ * s * 15f;
         torqueR = (hipDZ - rHipCZ) * s * khz - dHipRZ * s * 15f;
-        leftHip.addTorque(0, 0, torqueL);
-        rightHip.addTorque(0, 0, torqueR);
+        leftHip.addTorque(0, 0, -torqueL);
+        rightHip.addTorque(0, 0, -torqueR);
 
         //x is the 3rd axis
         double kneeD;
