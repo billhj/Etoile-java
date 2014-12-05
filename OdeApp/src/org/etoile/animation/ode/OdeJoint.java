@@ -271,11 +271,11 @@ public class OdeJoint {
         QuaternionD res;
         QuaternionD ax0 = new QuaternionD();
         //order inverse solution, not sure which order it is in ode for euler
-        ax0.setAxisAngle(_axis0, getAngle(0));
+        ax0.setAxisAngle(_axis0, -getAngle(0));
         QuaternionD ax1 = new QuaternionD();
-        ax1.setAxisAngle(_axis1, getAngle(1));
+        ax1.setAxisAngle(_axis1, -getAngle(1));
         QuaternionD ax2 = new QuaternionD();
-        ax2.setAxisAngle(_axis2, getAngle(2));
+        ax2.setAxisAngle(_axis2, -getAngle(2));
         res = QuaternionD.multiplication(ax0, ax1);
         res = QuaternionD.multiplication(res, ax2);
         return res;
@@ -321,13 +321,13 @@ public class OdeJoint {
         switch (axis) {
             case 0:
                 _motor.setParam(PARAM_N.dParamLoStop1, min);
-                return;
+                break;
             case 1:
                 _motor.setParam(PARAM_N.dParamLoStop2, min);
-                return;
+                break;
             case 2:
                 _motor.setParam(PARAM_N.dParamLoStop3, min);
-                return;
+                break;
             default:
                 break;
         }
@@ -337,13 +337,13 @@ public class OdeJoint {
         switch (axis) {
             case 0:
                 _motor.setParam(PARAM_N.dParamHiStop1, max);
-                return;
+                break;
             case 1:
                 _motor.setParam(PARAM_N.dParamHiStop2, max);
-                return;
+                break;
             case 2:
                 _motor.setParam(PARAM_N.dParamHiStop3, max);
-                return;
+                break;
             default:
                 break;
         }

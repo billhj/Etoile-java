@@ -134,8 +134,8 @@ public class BalanceController implements BaseController {
         
         // keep balance
         //z y x torque   offsetX apply on Z axis, offsetZ apply on x axis
-        leftHip.addTorque(offsetX, 0f, offsetZ);
-        rightHip.addTorque(offsetX, 0f, offsetZ);
+        leftHip.addTorque(offsetZ, 0f, offsetX);
+        rightHip.addTorque(offsetZ, 0f, offsetX);
 
         double hipD;
         // System.out.println("pelvis height "+pelH+" "+(ul+ll));
@@ -157,8 +157,8 @@ public class BalanceController implements BaseController {
 
         double torqueL = ((hipD - lHipC) * s * khx - dHipL * s * 15f);
         double torqueR = ((hipD - rHipC) * s * khx - dHipR * s * 15f);
-        leftHip.addTorque(0, 0, torqueL);
-        rightHip.addTorque(0, 0, torqueR);
+        leftHip.addTorque(torqueL, 0, 0);
+        rightHip.addTorque(torqueR, 0, 0);
 
         //z is the 1st axis
         float hipDZ = 0;
@@ -173,8 +173,8 @@ public class BalanceController implements BaseController {
 
         torqueL = (hipDZ - lHipCZ) * s * khz - dHipLZ * s * 15f;
         torqueR = (hipDZ - rHipCZ) * s * khz - dHipRZ * s * 15f;
-        leftHip.addTorque(torqueL, 0, 0);
-        rightHip.addTorque(torqueR, 0, 0);
+        leftHip.addTorque(0, 0, torqueL);
+        rightHip.addTorque(0, 0, torqueR);
 
         //x is the 3rd axis
         double kneeD;
@@ -198,8 +198,8 @@ public class BalanceController implements BaseController {
 
         torqueL = (lKneeT * s * kpKnee - dKneeL * s * kvKnee);
         torqueR = (rKneeT * s * kpKnee - dKneeR * s * kvKnee);
-        leftKnee.addTorque(0, 0, torqueL);
-        rightKnee.addTorque(0, 0, torqueR);
+        leftKnee.addTorque(torqueL, 0, 0);
+        rightKnee.addTorque(torqueR, 0, 0);
 
         DVector3 leftFw = new DVector3(0, 0, 1);
         DVector3 rightFw = new DVector3(0, 0, 1);
@@ -235,8 +235,8 @@ public class BalanceController implements BaseController {
         dRotRFoot = (rotXRFoot - oldRotLFoot) / dt;
         torqueL = rotXLFoot * s * 160 - dRotLFoot * s * 1.6f;
         torqueR = rotXRFoot * s * 160 - dRotRFoot * s * 1.6f;
-        leftAnkle.addTorque(0f, 0f, torqueL);
-        rightAnkle.addTorque(0f, 0f, torqueR);
+        leftAnkle.addTorque(torqueL, 0, 0);
+        rightAnkle.addTorque(torqueR, 0, 0);
 
         //tooo small ignore
         {
@@ -269,8 +269,8 @@ public class BalanceController implements BaseController {
             dRotRFoot = (rotZRFoot - oldRotRFoot) / dt;
         }
         
-        leftAnkle.addTorque(-offsetX * s * 3, 0f, offsetZ * s * 3);
-        rightAnkle.addTorque(-offsetX * s * 3, 0f, offsetZ * s * 3);
+        leftAnkle.addTorque(offsetZ * s * 3, 0f, -offsetX * s * 3);
+        rightAnkle.addTorque(offsetZ * s * 3, 0f, -offsetX * s * 3);
     }
 
     @Override

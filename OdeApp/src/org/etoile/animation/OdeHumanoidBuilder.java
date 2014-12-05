@@ -164,35 +164,35 @@ public class OdeHumanoidBuilder {
             axis1 = getArray(current.getAttribute("axis1"));
         }
         //double[] axis2 = getArray(current.getAttribute("axis2"));
-        OdeJoint j = human.createJoint(name, jointType, end, start, data, axis0, axis1);
-
+        OdeJoint j = human.createJoint(name, jointType, start,end,  data, axis0, axis1);
+        System.out.println(name +" "+j.getType().toString());
         {
-            if (current.hasAttribute("loStop0")) {
-                double low = current.getAttributeNumber("loStop0");
+            if (current.hasAttribute("loStopX")) {
+                double low = current.getAttributeNumber("loStopX");
                 j.setJointMin(0, low);
             }
-            if (current.hasAttribute("hiStop0")) {
-                double high = current.getAttributeNumber("hiStop0");
+            if (current.hasAttribute("hiStopX")) {
+                double high = current.getAttributeNumber("hiStopX");
                 j.setJointMax(0, high);
             }
         }
         {
-            if (current.hasAttribute("loStop1")) {
-                double low = current.getAttributeNumber("loStop1");
+            if (current.hasAttribute("loStopY")) {
+                double low = current.getAttributeNumber("loStopY");
                 j.setJointMin(1, low);
             }
-            if (current.hasAttribute("hiStop1")) {
-                double high = current.getAttributeNumber("hiStop1");
+            if (current.hasAttribute("hiStopY")) {
+                double high = current.getAttributeNumber("hiStopY");
                 j.setJointMax(1, high);
             }
         }
         {
-            if (current.hasAttribute("loStop2")) {
-                double low = current.getAttributeNumber("loStop2");
+            if (current.hasAttribute("loStopZ")) {
+                double low = current.getAttributeNumber("loStopZ");
                 j.setJointMin(2, low);
             }
-            if (current.hasAttribute("hiStop2")) {
-                double high = current.getAttributeNumber("hiStop2");
+            if (current.hasAttribute("hiStopZ")) {
+                double high = current.getAttributeNumber("hiStopZ");
                 j.setJointMax(2, high);
             }
         }

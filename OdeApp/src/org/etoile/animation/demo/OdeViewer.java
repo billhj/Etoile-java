@@ -52,6 +52,7 @@ import static org.ode4j.ode.DGeom.dCylinderClass;
 import static org.ode4j.ode.DGeom.dSphereClass;
 import org.ode4j.ode.DSphere;
 import org.etoile.animation.SkeletonParser;
+import org.etoile.animation.ode.controller.BalanceController;
 
 /**
  *
@@ -235,6 +236,7 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         if (builder.loadFile("../bin/data/camille_body.xml")){
             builder.buildBodyFromSkeleton(skeleton, _human);
         }
+        BalanceController balance = new BalanceController(_human);
         
     }
 
