@@ -142,7 +142,7 @@ public class BalanceController implements BaseController {
         if (pelH >= ul + ll) {
             hipD = 0;
         } else {
-            hipD = -(float) Math.acos((ul * ul - ll * ll + pelH * pelH) / (2 * ul * pelH));
+            hipD = (float) Math.acos((ul * ul - ll * ll + pelH * pelH) / (2 * ul * pelH));
         }
         //System.out.println("hipD " + hipD);
 
@@ -151,15 +151,15 @@ public class BalanceController implements BaseController {
         double dHipL = 0;
         double rHipOld = rHipC;
         double lHipOld = lHipC;
-        lHipC = leftHip.getAngle(2);
-        rHipC = rightHip.getAngle(2);
+        lHipC = -leftHip.getAngle(0);
+        rHipC = -rightHip.getAngle(0);
         dHipR = (rHipC - rHipOld) / dt;
         dHipL = (lHipC - lHipOld) / dt;
         //System.out.println("lHipC " + lHipC);
         double torqueL = ((hipD - lHipC) * s * khx - dHipL * s * 15f);
         double torqueR = ((hipD - rHipC) * s * khx - dHipR * s * 15f);
-        //leftHip.addTorque(torqueL, 0, 0);
-        //rightHip.addTorque(torqueR, 0, 0);
+        leftHip.addTorque(-torqueL, 0, 0);
+        rightHip.addTorque(-torqueR, 0, 0);
 
         //z is the 1st axis
         float hipDZ = 0;
@@ -167,8 +167,8 @@ public class BalanceController implements BaseController {
         double dHipLZ = 0;
         double rHipOldZ = rHipCZ;
         double lHipOldZ = lHipCZ;
-        lHipCZ = leftHip.getAngle(0);
-        rHipCZ = rightHip.getAngle(0);
+        lHipCZ = leftHip.getAngle(2);
+        rHipCZ = rightHip.getAngle(2);
         dHipRZ = (rHipCZ - rHipOldZ) / dt;
         dHipLZ = (lHipCZ - lHipOldZ) / dt;
 
