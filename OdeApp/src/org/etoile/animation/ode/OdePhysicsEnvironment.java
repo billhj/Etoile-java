@@ -136,8 +136,41 @@ public class OdePhysicsEnvironment {
     public OdeJoint createJoint(String name, JointType type, DJointGroup jointgroup) {
         OdeJoint joint = new OdeJoint(name, type, _world, jointgroup, _odejoints.size());
         _odejoints.add(joint);
+        /*if(type == JointType.BALL){
+            joint = createBallJoint(name, jointgroup);
+        }else if(type == JointType.FIXED){
+            joint = createFixedJoint(name, jointgroup);
+        }else if(type == JointType.HINGE){
+            joint = createHingeJoint(name, jointgroup);
+        }else if(type == JointType.UNIVERSAL){
+            joint = createUniversalJoint(name, jointgroup);
+        }*/
         return joint;
     }
+    
+    /*public OdeBallJoint createBallJoint(String name, DJointGroup jointgroup) {
+        OdeBallJoint joint = new OdeBallJoint(name, _world, jointgroup, _odejoints.size());
+        _odejoints.add(joint);
+        return joint;
+    }
+
+    public OdeHingeJoint createHingeJoint(String name, DJointGroup jointgroup) {
+        OdeHingeJoint joint = new OdeHingeJoint(name, _world, jointgroup, _odejoints.size());
+        _odejoints.add(joint);
+        return joint;
+    }
+
+    public OdeUniversalJoint createUniversalJoint(String name, DJointGroup jointgroup) {
+        OdeUniversalJoint joint = new OdeUniversalJoint(name, _world, jointgroup, _odejoints.size());
+        _odejoints.add(joint);
+        return joint;
+    }
+
+    public OdeFixedJoint createFixedJoint(String name, DJointGroup jointgroup) {
+        OdeFixedJoint joint = new OdeFixedJoint(name, _world, jointgroup, _odejoints.size());
+        _odejoints.add(joint);
+        return joint;
+    }*/
 
     public OdeRigidBody createRigidBody(String name) {
         OdeRigidBody body = new OdeRigidBody(name, _world, _space, _rigidBodies.size());
