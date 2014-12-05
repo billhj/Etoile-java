@@ -169,7 +169,7 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         } else if (cmd == 'w') {
 //            OdeRigidBody upper = _human.getBody("upper_torso");
 //            OdeRigidBody lower = _human.getBody("lower_torso");
-            OdeRigidBody upper = _env.getBody(7);
+            OdeRigidBody upper = _env.getBody(6);
             upper.addForce(0, 0, -1000);
 //            QuaternionD q = upper.getRotation();
 //            QuaternionD ql = lower.getRotation();
@@ -179,14 +179,14 @@ public class OdeViewer extends DrawStuff.dsFunctions {
 //            _human.getJoint("vl1").addTorque(0, 0, 1000);
             //upper.addForce(0, 0, -1000);
         } else if (cmd == 's') {
-            OdeRigidBody upper = _env.getBody(7);
+            OdeRigidBody upper = _env.getBody(6);
             upper.addForce(0, 0, 1000);
             //_human.getJoint("vl1").addTorque(0 , 0, 1000);
         } else if (cmd == 'a') {
-            OdeRigidBody upper = _env.getBody(7);
+            OdeRigidBody upper = _env.getBody(6);
             upper.addForce(-1000, 0, 0);
         } else if (cmd == 'd') {
-            OdeRigidBody upper = _env.getBody(7);
+            OdeRigidBody upper = _env.getBody(6);
             upper.addForce(1000, 0, 0);
         } else if (cmd == 'e') {
             _rec = false;

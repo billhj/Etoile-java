@@ -271,11 +271,11 @@ public class OdeJoint {
         QuaternionD res;
         QuaternionD ax0 = new QuaternionD();
         //order inverse solution, not sure which order it is in ode for euler
-        ax0.setAxisAngle(_axis0, -getAngle(0));
+        ax0.setAxisAngle(_axis0, getAngle(0));
         QuaternionD ax1 = new QuaternionD();
-        ax1.setAxisAngle(_axis1, -getAngle(1));
+        ax1.setAxisAngle(_axis1, getAngle(1));
         QuaternionD ax2 = new QuaternionD();
-        ax2.setAxisAngle(_axis2, -getAngle(2));
+        ax2.setAxisAngle(_axis2, getAngle(2));
         res = QuaternionD.multiplication(ax0, ax1);
         res = QuaternionD.multiplication(res, ax2);
         return res;

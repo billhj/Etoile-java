@@ -79,6 +79,7 @@ public class OdeHumanoidBuilder {
                 }
             }
         }
+        human.glueFeetToFloor();
         return true;
     }
 
@@ -164,7 +165,7 @@ public class OdeHumanoidBuilder {
             axis1 = getArray(current.getAttribute("axis1"));
         }
         //double[] axis2 = getArray(current.getAttribute("axis2"));
-        OdeJoint j = human.createJoint(name, jointType, start,end,  data, axis0, axis1);
+        OdeJoint j = human.createJoint(name, jointType, end, start, data, axis0, axis1);
         System.out.println(name +" "+j.getType().toString());
         {
             if (current.hasAttribute("loStopX")) {
