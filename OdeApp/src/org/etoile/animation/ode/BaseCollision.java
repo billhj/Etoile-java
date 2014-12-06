@@ -8,7 +8,7 @@ package org.etoile.animation.ode;
 
 /**
  *
- * @author Jing Huang
+ * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
 public interface BaseCollision {
     public void startCollision();

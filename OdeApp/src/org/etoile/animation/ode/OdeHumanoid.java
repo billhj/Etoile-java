@@ -28,7 +28,7 @@ import org.ode4j.math.DVector3C;
 
 /**
  *
- * @author Jing Huang
+ * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
 public class OdeHumanoid extends OdeMultiBodyObject{
 
