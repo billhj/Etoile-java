@@ -41,7 +41,7 @@ public class BalanceController implements BaseController {
     boolean _active = true;
     double[] _com = new double[]{0, 0, 0};
     double[] _comdiff = new double[]{0, 0, 0};
-    double[] _offset = new double[]{0.00, 0, 0};
+    double[] _offset = new double[]{0.05, 0, 0};
 
     private double kpx = 280f;
     private double kvx = 28f;
@@ -70,7 +70,7 @@ public class BalanceController implements BaseController {
     private double lHipCZ = 0;
     private double rHipCZ = 0;
 
-    private double ul, ll, pelH = 0.795f;
+    private double ul, ll, pelH = 0.865f;
 
     private double s = 1;
 
