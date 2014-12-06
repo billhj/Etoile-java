@@ -152,7 +152,7 @@ public class JSimbiconController {
     
     
     /** manually add a walking controller to the states...*/
-    void addWalkingController(){
+    public void addWalkingController(){
         /* - State 0 - */
         state[nrStates] = new ConState();
         state[nrStates].num = nrStates;
@@ -247,7 +247,7 @@ public class JSimbiconController {
 
     
     /** manually add a running controller to the states...*/
-    void addRunningController(){
+    public void addRunningController(){
         /* - State 0 - */
         state[nrStates] = new ConState();
         state[nrStates].num = nrStates;
@@ -343,7 +343,7 @@ public class JSimbiconController {
     
     
     /** manually add a crouch walking controller to the states...*/
-    void addCrouchWalkController(){
+    public void addCrouchWalkController(){
         /* - State 0 - */
         state[nrStates] = new ConState();
         state[nrStates].num = nrStates;

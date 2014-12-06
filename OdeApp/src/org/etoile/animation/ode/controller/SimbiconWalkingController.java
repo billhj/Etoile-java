@@ -24,7 +24,11 @@
 package org.etoile.animation.ode.controller;
 
 import org.etoile.animation.ode.OdeHumanoid;
+import org.etoile.animation.ode.OdeJoint;
 import org.etoile.animation.ode.OdeRigidBody;
+import org.etoile.animation.ode.QuaternionD;
+import org.ode4j.math.DVector3;
+import org.ode4j.math.DVector3C;
 
 /**
  *
@@ -53,6 +57,15 @@ public class SimbiconWalkingController implements BaseController {
     OdeHumanoid _human;
     OdeRigidBody _leftFoot;
     OdeRigidBody _rightFoot;
+    double[] _com = new double[]{0, 0, 0};
+    double[] _comdiff = new double[]{0, 0, 0};
+
+    OdeJoint _leftAnkle;
+    OdeJoint _rightAnkle;
+    OdeJoint _rightHip;
+    OdeJoint _leftHip;
+    OdeJoint _rightKnee;
+    OdeJoint _leftKnee;
 
     public SimbiconWalkingController(OdeHumanoid human) {
         _human = human;
@@ -62,10 +75,19 @@ public class SimbiconWalkingController implements BaseController {
 
         _leftFoot = _human.getBody("foot_l");
         _rightFoot = _human.getBody("foot_r");
+        _leftAnkle = _human.getJoint("l_ankle");
+        _rightAnkle = _human.getJoint("r_ankle");
+        _rightHip = _human.getJoint("r_hip");
+        _leftHip = _human.getJoint("l_hip");
+        _rightKnee = _human.getJoint("r_knee");
+        _leftKnee = _human.getJoint("l_knee");
     }
 
     @Override
     public void update(double dt) {
+
+        updateState(dt);
+
         int body = 0, stanceHip, swingHip;
         double fallAngle = 60;
         double torq[] = new double[7];
@@ -100,6 +122,7 @@ public class SimbiconWalkingController implements BaseController {
             torq[n] = boundRange(torq[n], _controller.torqLimit[0][n], _controller.torqLimit[1][n]);   // torq limits
             jointLimit(torq[n], n);		                                     // apply joint limits
         }
+        applyTorque(torq);
     }
 
     //////////////////////////////////////////////////////////
@@ -196,6 +219,93 @@ public class SimbiconWalkingController implements BaseController {
             value = max;
         }
         return value;
+    }
+
+    void updateState(double dt) {
+        _human.updateCOM(dt);
+        _human.getCOM(_com);
+        _human.getCOMDiff(_comdiff);
+        DVector3C leftFootPos = _leftFoot.getPosition();
+        DVector3C rightFootPos = _rightFoot.getPosition();
+
+        QuaternionD qLeftFoot = _leftFoot.getRotation();
+        QuaternionD qRightFoot = _rightFoot.getRotation();
+        QuaternionD qBody = QuaternionD.slerp(qLeftFoot, qRightFoot, 0.5, true);
+        qBody.invert();
+
+        DVector3 com = new DVector3(_com[0], _com[1], _com[2]);
+        DVector3 comdiff = new DVector3(_comdiff[0], _comdiff[1], _comdiff[2]);
+        com = qBody.rotate(com);
+        comdiff = qBody.rotate(comdiff);
+        _com[0] = com.get0();
+        _com[1] = com.get1();
+        _com[2] = com.get2();
+        _comdiff[0] = comdiff.get0();
+        _comdiff[1] = comdiff.get1();
+        _comdiff[2] = comdiff.get2();
+        State[1] = _comdiff[2];
+        State[0] = _com[2];
+        int iLHeel = 8;   // x-coord of left-heel monitor point
+        int iRHeel = 0;   // x-coord of right-heel monitor point
+        MonState[iLHeel] = qBody.rotate((DVector3) leftFootPos).get2();
+        MonState[iRHeel] = qBody.rotate((DVector3) rightFootPos).get2();
+
+        int index = 4 + 1 * 2;
+        {
+            double r = _rightHip.getAngle(0);
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+        }
+        {
+            double r = _rightKnee.getAngle(0);
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+        }
+        {
+            double r = _leftHip.getAngle(0);
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+        }
+        {
+            double r = _leftKnee.getAngle(0);
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+        }
+        {
+            double r = _rightAnkle.getAngle(0);
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+        }
+        {
+            double r = _leftAnkle.getAngle(0);
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+        }
+
+    }
+
+    void applyTorque(double torq[]) {
+        int torsoIndex = 0;
+        int rhipIndex = 1;
+        int rkneeIndex = 2;
+        int lhipIndex = 3;
+        int lkneeIndex = 4;
+        int rankleIndex = 5;
+        int lankleIndex = 6;
+
+        _rightHip.addTorque(torq[1], 0, 0);
+        _rightKnee.addTorque(torq[2], 0, 0);
+        _leftHip.addTorque(torq[3], 0, 0);
+        _leftKnee.addTorque(torq[4], 0, 0);
+        _rightAnkle.addTorque(torq[5], 0, 0);
+        _leftAnkle.addTorque(torq[5], 0, 0);
+
     }
 
     @Override
