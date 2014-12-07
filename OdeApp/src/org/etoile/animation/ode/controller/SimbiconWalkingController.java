@@ -69,6 +69,7 @@ public class SimbiconWalkingController implements BaseController {
 
     public SimbiconWalkingController(OdeHumanoid human) {
         _human = human;
+        _human.addController(this);
         _controller.addWalkingController();
         _controller.addRunningController();
         _controller.addCrouchWalkController();
@@ -81,6 +82,16 @@ public class SimbiconWalkingController implements BaseController {
         _leftHip = _human.getJoint("l_hip");
         _rightKnee = _human.getJoint("r_knee");
         _leftKnee = _human.getJoint("l_knee");
+        double[] state = {0.463f, 0.98f, 0.898f, -0.229f, 0.051f, 0.276f, -0.221f, -1.430f, -0.217f, 0.086f, 0.298f, -3.268f, -0.601f, 3.167f, 0.360f, 0.697f, 0.241f, 3.532f};
+        setState(state);
+    }
+    
+    /** This method sets the state of the biped */
+    public void setState(double[] newState){
+        for (int i=0;i<nrStates;i++){
+            State[i] = newState[i];
+            CopyState[i] = newState[i];
+        }
     }
 
     @Override
@@ -98,7 +109,7 @@ public class SimbiconWalkingController implements BaseController {
         // The following applies the control FSM.
         // As part of this, it computes the virtual fb torque for the
         // body, as implemented by a simple PD controller wrt to the world up vector
-        if (_lostControl) {
+        if (!_lostControl) {
             bip7WalkFsm(torq, dt);
         }
 

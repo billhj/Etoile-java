@@ -79,7 +79,7 @@ public class OdeHumanoidBuilder {
                 }
             }
         }
-        human.glueFeetToFloor();
+        //human.glueFeetToFloor();
         return true;
     }
 

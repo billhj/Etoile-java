@@ -23,20 +23,28 @@
  */
 package org.etoile.animation.demo;
 
+import java.util.List;
+import org.etoile.animation.OdeHumanoidBuilder;
+import org.etoile.animation.SkeletonParser;
 import org.etoile.animation.ode.OdeHumanoid;
 import org.etoile.animation.ode.OdeJoint;
 import org.etoile.animation.ode.OdePhysicsEnvironment;
 import org.etoile.animation.ode.OdeRigidBody;
 import org.etoile.animation.ode.QuaternionD;
-import java.util.List;
-import org.etoile.animation.OdeHumanoidBuilder;
+import org.etoile.animation.ode.controller.BalanceController;
+import org.etoile.animation.ode.controller.SimbiconWalkingController;
 import org.etoile.core.animation.Skeleton;
 import org.ode4j.drawstuff.DrawStuff;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;
+import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;
+import static org.ode4j.drawstuff.DrawStuff.dsDrawCapsule;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawCapsule;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawCylinder;
+import static org.ode4j.drawstuff.DrawStuff.dsDrawCylinder;
+import static org.ode4j.drawstuff.DrawStuff.dsDrawSphere;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawSphere;
 import static org.ode4j.drawstuff.DrawStuff.dsSetColorAlpha;
+import static org.ode4j.drawstuff.DrawStuff.dsSetViewpoint;
 import static org.ode4j.drawstuff.DrawStuff.dsSetViewpoint;
 import static org.ode4j.drawstuff.DrawStuff.dsSimulationLoop;
 import org.ode4j.math.DMatrix3;
@@ -51,8 +59,6 @@ import static org.ode4j.ode.DGeom.dCapsuleClass;
 import static org.ode4j.ode.DGeom.dCylinderClass;
 import static org.ode4j.ode.DGeom.dSphereClass;
 import org.ode4j.ode.DSphere;
-import org.etoile.animation.SkeletonParser;
-import org.etoile.animation.ode.controller.BalanceController;
 
 /**
  *
@@ -236,8 +242,8 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         if (builder.loadFile("../bin/data/camille_body.xml")){
             builder.buildBodyFromSkeleton(skeleton, _human);
         }
-        BalanceController balance = new BalanceController(_human);
-        
+        //BalanceController balance = new BalanceController(_human);
+        SimbiconWalkingController walk = new SimbiconWalkingController(_human);
     }
 
     /**
