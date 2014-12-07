@@ -55,6 +55,7 @@ public class SimbiconWalkingController implements BaseController {
     public double MonState[] = new double[50];
 
     OdeHumanoid _human;
+    OdeRigidBody _lowertorso;
     OdeRigidBody _leftFoot;
     OdeRigidBody _rightFoot;
     double[] _com = new double[]{0, 0, 0};
@@ -67,6 +68,8 @@ public class SimbiconWalkingController implements BaseController {
     OdeJoint _rightKnee;
     OdeJoint _leftKnee;
 
+    boolean _debug = true;
+
     public SimbiconWalkingController(OdeHumanoid human) {
         _human = human;
         _human.addController(this);
@@ -74,6 +77,7 @@ public class SimbiconWalkingController implements BaseController {
         _controller.addRunningController();
         _controller.addCrouchWalkController();
 
+        _lowertorso = _human.getBody("lower_torso");
         _leftFoot = _human.getBody("foot_l");
         _rightFoot = _human.getBody("foot_r");
         _leftAnkle = _human.getJoint("l_ankle");
@@ -85,10 +89,12 @@ public class SimbiconWalkingController implements BaseController {
         double[] state = {0.463f, 0.98f, 0.898f, -0.229f, 0.051f, 0.276f, -0.221f, -1.430f, -0.217f, 0.086f, 0.298f, -3.268f, -0.601f, 3.167f, 0.360f, 0.697f, 0.241f, 3.532f};
         setState(state);
     }
-    
-    /** This method sets the state of the biped */
-    public void setState(double[] newState){
-        for (int i=0;i<nrStates;i++){
+
+    /**
+     * This method sets the state of the biped
+     */
+    public void setState(double[] newState) {
+        for (int i = 0; i < nrStates; i++) {
             State[i] = newState[i];
             CopyState[i] = newState[i];
         }
@@ -112,8 +118,7 @@ public class SimbiconWalkingController implements BaseController {
         if (!_lostControl) {
             bip7WalkFsm(torq, dt);
         }
-
-        // now change torq[body], which is virtual, 
+            // now change torq[body], which is virtual, 
         // to include a FEL feed-forward component
         // compute stance leg torque based upon body and swing leg
         if (_controller.state[_controller.fsmState].leftStance) {
@@ -134,6 +139,7 @@ public class SimbiconWalkingController implements BaseController {
             jointLimit(torq[n], n);		                                     // apply joint limits
         }
         applyTorque(torq);
+
     }
 
     //////////////////////////////////////////////////////////
@@ -261,12 +267,20 @@ public class SimbiconWalkingController implements BaseController {
         MonState[iLHeel] = qBody.rotate((DVector3) leftFootPos).get2();
         MonState[iRHeel] = qBody.rotate((DVector3) rightFootPos).get2();
 
-        int index = 4 + 1 * 2;
+        int index = 4;
+        {
+            double r = _lowertorso.getRotation().getEulerAngleXYZ().get0();
+            State[index + 1] = (r - State[index]) / dt;
+            State[index] = r;
+            index += 2;
+            //System.out.println("hip: " + r);
+        }
         {
             double r = _rightHip.getAngle(0);
             State[index + 1] = (r - State[index]) / dt;
             State[index] = r;
             index += 2;
+            //System.out.println("hip: " + r);
         }
         {
             double r = _rightKnee.getAngle(0);
@@ -299,6 +313,20 @@ public class SimbiconWalkingController implements BaseController {
             index += 2;
         }
 
+//        int torsoIndex = 0;
+//        int rhipIndex = 1;
+//        int rkneeIndex = 2;
+//        int lhipIndex = 3;
+//        int lkneeIndex = 4;
+//        int rankleIndex = 5;
+//        int lankleIndex = 6;
+        if (State[4] > 2 || State[4] < -2 || State[6] > 2.3 || State[6] < -2.3 || State[10] > 2.3 || State[10] < -2.3) {
+            loseControl();
+            if (_debug) {
+                System.out.println("loseControl");
+            }
+        }
+
     }
 
     void applyTorque(double torq[]) {
@@ -316,7 +344,17 @@ public class SimbiconWalkingController implements BaseController {
         _leftKnee.addTorque(torq[4], 0, 0);
         _rightAnkle.addTorque(torq[5], 0, 0);
         _leftAnkle.addTorque(torq[5], 0, 0);
+        if (_debug) {
+            int i = 0;
+            for (double t : torq) {
+                System.out.println("torque: [" + i + "] " + t);
+                ++i;
+            }
+        }
+    }
 
+    public void loseControl() {
+        _lostControl = true;
     }
 
     @Override
