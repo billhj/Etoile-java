@@ -5,9 +5,9 @@
 	<body name="upper_leg_r" start="r_hip" end="r_knee" mass="8" color="0.1 0.4 0.1 0.7" offset="0 0 0"/>
 	<body name="lower_leg_l" start="l_knee" end="l_ankle" mass="3" color="0.5 0.4 0.1 0.7" offset="0 0 0"/>
 	<body name="lower_leg_r" start="r_knee" end="r_ankle" mass="3" color="0.5 0.4 0.1 0.7" offset="0 0 0"/>
-	<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 0"/>
-	<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 0"/>
-	<body name="lower_torso" start="HumanoidRoot" end="vl1" mass="20" color="0.2 0.4 0.6 0.7" offset="0 0 0.01"/>
+	<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0.04"/>
+	<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0.04"/>
+	<body name="lower_torso" start="HumanoidRoot" end="vc7" mass="20" color="0.2 0.4 0.6 0.7" offset="0 0 0.01"/>
 	<!--body name="upper_torso" start="vl1" end="vc7" mass="1" color="0.2 0.8 0.6 0.7" offset="0 0 0.01"/-->
 </bodys>
 <joints>
@@ -16,7 +16,7 @@
 	<joint name="r_hip" start="lower_torso" end="upper_leg_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 1 0" loStopX="-1.7" hiStopX="0"  loStopY="0" hiStopY="0" loStopZ="0" hiStopZ="0"/>
 	<joint name="l_knee" start="upper_leg_l" end="lower_leg_l" type="HINGE" axis0="1 0 0"  loStopX="0" hiStopX="2.5" />
 	<joint name="r_knee" start="upper_leg_r" end="lower_leg_r" type="HINGE" axis0="1 0 0"  loStopX="0" hiStopX="2.5" />
-	<joint name="l_ankle" start="lower_leg_l" end="foot_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStopX="-0.5" hiStopX="2" loStopY="-0.05" hiStopY="0.05" loStopZ="-0.05" hiStopZ="0.05"/>
-	<joint name="r_ankle" start="lower_leg_r" end="foot_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStopX="-0.5" hiStopX="2" loStopY="-0.05" hiStopY="0.05" loStopZ="-0.05" hiStopZ="0.05"/>
+	<joint name="l_ankle" start="lower_leg_l" end="foot_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStopX="-0.05" hiStopX="2" loStopY="-0.05" hiStopY="0.05" loStopZ="-0.05" hiStopZ="0.05"/>
+	<joint name="r_ankle" start="lower_leg_r" end="foot_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStopX="-0.05" hiStopX="2" loStopY="-0.05" hiStopY="0.05" loStopZ="-0.05" hiStopZ="0.05"/>
 </joints>
 </humanoid>

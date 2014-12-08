@@ -72,7 +72,7 @@ public class BalanceController implements BaseController {
 
     private double ul, ll, pelH = 0.865f;
 
-    private double s = 1;
+    private double s = 1.0;
 
     OdeHumanoid _human;
     OdeRigidBody leftFoot;
@@ -154,6 +154,7 @@ public class BalanceController implements BaseController {
         
         double offsetX = s * kpx * (centerfeet[0] - _com[0]) - kvx * _comdiff[0];
         double offsetZ = s * kpz * (centerfeet[2] - _com[2]) - kvz * _comdiff[2];
+        //System.out.println(offsetZ);
         
         // keep balance
         //z y x torque   offsetX apply on Z axis, offsetZ apply on x axis
@@ -169,7 +170,7 @@ public class BalanceController implements BaseController {
         }
         //System.out.println("hipD " + hipD);
 
-        //x is the third axis
+        //x is the 1st axis
         double dHipR = 0;
         double dHipL = 0;
         double rHipOld = rHipC;
@@ -184,7 +185,7 @@ public class BalanceController implements BaseController {
         leftHip.addTorque(-torqueL, 0, 0);
         rightHip.addTorque(-torqueR, 0, 0);
 
-        //z is the 1st axis
+        //z is the 3rd axis
         float hipDZ = 0;
         double dHipRZ = 0;
         double dHipLZ = 0;
@@ -294,8 +295,8 @@ public class BalanceController implements BaseController {
             dRotRFoot = (rotZRFoot - oldRotRFoot) / dt;
         }
         
-        leftAnkle.addTorque(-offsetZ * s * 3, 0f, offsetX * s * 3);
-        rightAnkle.addTorque(-offsetZ * s * 3, 0f, offsetX * s * 3);
+        leftAnkle.addTorque(-offsetZ * s * 18, 0f, offsetX * s * 3);
+        rightAnkle.addTorque(-offsetZ * s * 18, 0f, offsetX * s * 3);
     }
 
     @Override
