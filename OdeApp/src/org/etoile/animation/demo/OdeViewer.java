@@ -228,8 +228,7 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         if (_env != null) {
             _env.release();
         }
-    }
-    
+    }    
     private void initCharacter(){
         Skeleton skeleton = new Skeleton("test");
         SkeletonParser parser = new SkeletonParser();
