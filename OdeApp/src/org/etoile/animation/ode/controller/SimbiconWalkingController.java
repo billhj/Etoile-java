@@ -47,6 +47,16 @@ public class SimbiconWalkingController implements BaseController {
     //this is the number of states that the biped needs in order to be fully characterized:  - 7*2 for each link + 2*(root translation/vel)
     public final static int nrStates = 18;
 
+    enum ENUMState {
+
+        torsoIndex,
+        rhipIndex,
+        rkneeIndex,
+        lhipIndex,
+        lkneeIndex,
+        rankleIndex,
+        lankleIndex,
+    };
     //this is the state of the biped
     public double State[] = new double[nrStates];
     //and we'll keep a copy of the default biped state, so that we can restart from it
@@ -121,29 +131,29 @@ public class SimbiconWalkingController implements BaseController {
         // body, as implemented by a simple PD controller wrt to the world up vector
         if (!_lostControl) {
             bip7WalkFsm(torq, dt);
-        }
+
             // now change torq[body], which is virtual, 
-        // to include a FEL feed-forward component
-        // compute stance leg torque based upon body and swing leg
-        if (_controller.state[_controller.fsmState].leftStance) {
-            stanceHip = 3;   // left hip
-            swingHip = 1;   // right hip
-        } else {
-            stanceHip = 1;   // right hip
-            swingHip = 3;   // left hip
-        }
+            // to include a FEL feed-forward component
+            // compute stance leg torque based upon body and swing leg
+            if (_controller.state[_controller.fsmState].leftStance) {
+                stanceHip = 3;   // left hip
+                swingHip = 1;   // right hip
+            } else {
+                stanceHip = 1;   // right hip
+                swingHip = 3;   // left hip
+            }
 
-        if (!_controller.state[_controller.fsmState].poseStance) {
-            torq[stanceHip] = -torq[body] - torq[swingHip];
-        }
-        torq[0] = 0;         // no external torque allowed !
+            if (!_controller.state[_controller.fsmState].poseStance) {
+                torq[stanceHip] = -torq[body] - torq[swingHip];
+            }
+            torq[0] = 0;         // no external torque allowed !
 
-        for (int n = 1; n < 7; n++) {
-            torq[n] = boundRange(torq[n], _controller.torqLimit[0][n], _controller.torqLimit[1][n]);   // torq limits
-            jointLimit(torq[n], n);		                                     // apply joint limits
+            for (int n = 1; n < 7; n++) {
+                torq[n] = boundRange(torq[n], _controller.torqLimit[0][n], _controller.torqLimit[1][n]);   // torq limits
+                jointLimit(torq[n], n);		                                     // apply joint limits
+            }
+            applyTorque(torq);
         }
-        applyTorque(torq);
-
     }
 
     //////////////////////////////////////////////////////////
@@ -173,9 +183,12 @@ public class SimbiconWalkingController implements BaseController {
 
         computeMdMdd();
         for (int n = 0; n < 7; n++) {         // compute target angles for each joint
+            ENUMState body = ENUMState.values()[n];
             double target = s.th[n] + Md * s.thd[n] + Mdd * s.thdd[n];         // target state + fb actions
+            System.out.println(body.name());
             target = boundRange(target, _controller.targetLimit[0][n], _controller.targetLimit[1][n]);    // limit range of target angle
             wPDtorq(torq, n, target, _controller.kp[n], _controller.kd[n], worldFrame[n]);  // compute torques
+            System.out.println();
         }
 
         _controller.advance(FootState);   	// advance FSM to next state if needed
@@ -192,7 +205,8 @@ public class SimbiconWalkingController implements BaseController {
             joint_posn += State[4];    // add body tilt
             joint_vel += State[5];    // add body angular velocity
         }
-        torq[joint] = kp * (dposn - joint_posn) - kd * joint_vel;
+        torq[joint] = (kp * (dposn - joint_posn) - kd * joint_vel);
+        System.out.println("target: " + dposn + "current: " + joint_posn + "torque: " + torq[joint]);
     }
 
     private void computeMdMdd() {
@@ -277,7 +291,7 @@ public class SimbiconWalkingController implements BaseController {
             State[index + 1] = (r - State[index]) / dt;
             State[index] = r;
             index += 2;
-            //System.out.println("hip: " + r);
+            System.out.println("hip: " + r);
         }
         {
             double r = _rightHip.getAngle(0);
@@ -324,7 +338,8 @@ public class SimbiconWalkingController implements BaseController {
 //        int lkneeIndex = 4;
 //        int rankleIndex = 5;
 //        int lankleIndex = 6;
-        if (State[4] > 2 || State[4] < -2 || State[6] > 2.3 || State[6] < -2.3 || State[10] > 2.3 || State[10] < -2.3) {
+        double root = _lowertorso.getRotation().angle();
+        if (root > 1.5 || root < -1.5 || State[6] > 2.3 || State[6] < -2.3 || State[10] > 2.3 || State[10] < -2.3) {
             loseControl();
             if (_debug) {
                 System.out.println("loseControl");
@@ -351,7 +366,7 @@ public class SimbiconWalkingController implements BaseController {
         if (_debug) {
             int i = 0;
             for (double t : torq) {
-                System.out.println("torque: [" + i + "] " + t);
+                //System.out.println("torque: [" + i + "] " + t);
                 ++i;
             }
         }
