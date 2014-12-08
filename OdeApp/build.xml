@@ -9,6 +9,10 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="OdeApp" default="default" basedir=".">
     <description>Builds, tests, and runs the project OdeApp.</description>
+    <target depends="init" name="-do-clean">
+        <delete dir="${build.dir}"/>
+        <delete file="${dist.jar}"/>
+    </target>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
