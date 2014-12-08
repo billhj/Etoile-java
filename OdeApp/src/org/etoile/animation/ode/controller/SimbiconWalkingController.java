@@ -185,10 +185,10 @@ public class SimbiconWalkingController implements BaseController {
         for (int n = 0; n < 7; n++) {         // compute target angles for each joint
             ENUMState body = ENUMState.values()[n];
             double target = s.th[n] + Md * s.thd[n] + Mdd * s.thdd[n];         // target state + fb actions
-            System.out.println(body.name());
+            //System.out.println(body.name());
             target = boundRange(target, _controller.targetLimit[0][n], _controller.targetLimit[1][n]);    // limit range of target angle
             wPDtorq(torq, n, target, _controller.kp[n], _controller.kd[n], worldFrame[n]);  // compute torques
-            System.out.println();
+            //System.out.println();
         }
 
         _controller.advance(FootState);   	// advance FSM to next state if needed
@@ -206,7 +206,7 @@ public class SimbiconWalkingController implements BaseController {
             joint_vel += State[5];    // add body angular velocity
         }
         torq[joint] = (kp * (dposn - joint_posn) - kd * joint_vel);
-        System.out.println("target: " + dposn + "current: " + joint_posn + "torque: " + torq[joint]);
+        //System.out.println("target: " + dposn + "current: " + joint_posn + "torque: " + torq[joint]);
     }
 
     private void computeMdMdd() {
