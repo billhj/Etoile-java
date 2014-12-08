@@ -256,6 +256,13 @@ public class SimbiconWalkingController implements BaseController {
         return value;
     }
 
+    private double kpx = 280f;
+    private double kvx = 28f;
+    private double s = 1.0;
+    private double lHipCZ = 0;
+    private double rHipCZ = 0;
+    private double khz = 150f;
+
     void updateState(double dt) {
         _human.updateCOM(dt);
         _human.getCOM(_com);
@@ -278,6 +285,36 @@ public class SimbiconWalkingController implements BaseController {
         _comdiff[0] = comdiff.get0();
         _comdiff[1] = comdiff.get1();
         _comdiff[2] = comdiff.get2();
+
+        if(dt>0)
+        {
+            double[] centerfeet = new double[]{0, 0, 0};
+            centerfeet[0] = (leftFootPos.get0() + rightFootPos.get0()) * 0.5;
+            centerfeet[1] = (leftFootPos.get1() + rightFootPos.get1()) * 0.5;
+            centerfeet[2] = (leftFootPos.get2() + rightFootPos.get2()) * 0.5;
+            double offsetX = s * kpx * (centerfeet[0] - _com[0]) - kvx * _comdiff[0];
+            _leftHip.addTorque(0, 0f, -offsetX);
+            _rightHip.addTorque(0, 0f, -offsetX);
+
+            float hipDZ = 0;
+            double dHipRZ = 0;
+            double dHipLZ = 0;
+            double rHipOldZ = rHipCZ;
+            double lHipOldZ = lHipCZ;
+            lHipCZ = -_leftHip.getAngle(2);
+            rHipCZ = -_rightHip.getAngle(2);
+            dHipRZ = (rHipCZ - rHipOldZ) / dt;
+            dHipLZ = (lHipCZ - lHipOldZ) / dt;
+
+            double torqueL = (hipDZ - lHipCZ) * s * khz - dHipLZ * s * 15f;
+            double torqueR = (hipDZ - rHipCZ) * s * khz - dHipRZ * s * 15f;
+            _leftHip.addTorque(0, 0, -torqueL);
+            _rightHip.addTorque(0, 0, -torqueR);
+            
+            _leftAnkle.addTorque(0, 0f, offsetX * s * 3);
+            _rightAnkle.addTorque(0, 0f, offsetX * s * 3);
+        }
+
         State[1] = _comdiff[2];
         State[0] = _com[2];
         int iLHeel = 8;   // x-coord of left-heel monitor point
@@ -291,7 +328,7 @@ public class SimbiconWalkingController implements BaseController {
             State[index + 1] = (r - State[index]) / dt;
             State[index] = r;
             index += 2;
-            System.out.println("hip: " + r);
+            //System.out.println("hip: " + r);
         }
         {
             double r = _rightHip.getAngle(0);

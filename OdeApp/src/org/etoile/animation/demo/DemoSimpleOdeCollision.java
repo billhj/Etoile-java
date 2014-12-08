@@ -77,12 +77,12 @@ public class DemoSimpleOdeCollision extends SimpleOdeCollision {
                 //dIASSERT(dVALIDVEC3(contact[i].geom.pos));
                 //dIASSERT(dVALIDVEC3(contact[i].geom.normal));
                 //dIASSERT(!dIsNan(contact[i].geom.depth));
-                contact.surface.slip1 = 0.1;
-                contact.surface.slip2 = 0.1;
+                contact.surface.slip1 = 0.3;
+                contact.surface.slip2 = 0.3;
                 contact.surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
                 contact.surface.mu = 0.2; // was: dInfinity
-                contact.surface.soft_erp = 0.06;
-                contact.surface.soft_cfm = 0.04;
+                contact.surface.soft_erp = 0.001;
+                contact.surface.soft_cfm = 0.001;
                 DContactJoint c = OdeHelper.createContactJoint(_world, _contactgroup, contact);
                 c.attach(contact.geom.g1.getBody(),
                         contact.geom.g2.getBody());

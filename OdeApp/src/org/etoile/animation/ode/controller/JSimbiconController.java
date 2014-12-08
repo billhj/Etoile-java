@@ -40,14 +40,14 @@ public class JSimbiconController {
     public Group groups[] = new Group[MaxGroups];         // groups
     public int nrStates = 0;                     // number of states
     public int nrGroups = 0;                     // number of groups
-    public float kp[] = new float[MaxJoints];
-    public float kd[] = new float[MaxJoints];
-    public float targetLimit[][] = new float[2][MaxJoints];      // target joint angles min,max limits
-    public float torqLimit[][] = new float[2][MaxJoints];        // torque min, max limits
-    public float jointLimit[][] = new float[2][MaxJoints];       // joint angle limits
+    public double kp[] = new double[MaxJoints];
+    public double kd[] = new double[MaxJoints];
+    public double targetLimit[][] = new double[2][MaxJoints];      // target joint angles min,max limits
+    public double torqLimit[][] = new double[2][MaxJoints];        // torque min, max limits
+    public double jointLimit[][] = new double[2][MaxJoints];       // joint angle limits
 
     public int fsmState = 0;                    // current state
-    public float stateTime = 0;                 // time spent within state
+    public double stateTime = 0;                 // time spent within state
 
     public int currentGroupNumber = 0;
     public int desiredGroupNumber = 0;
@@ -125,26 +125,26 @@ public class JSimbiconController {
             kd[i] = 30;
             torqLimit[0][i] = -1000;
             torqLimit[1][i] = 1000;
-            targetLimit[0][i] = -(float) Math.PI;
-            targetLimit[1][i] = (float) Math.PI;
-            jointLimit[0][i] = -(float) Math.PI;
-            jointLimit[1][i] = (float) Math.PI;
+            targetLimit[0][i] = -(double) Math.PI;
+            targetLimit[1][i] = (double) Math.PI;
+            jointLimit[0][i] = -(double) Math.PI;
+            jointLimit[1][i] = (double) Math.PI;
         }
 
-        jointLimit[0][1] = -1;
-        jointLimit[1][1] = 3;
-        jointLimit[0][3] = -1;
-        jointLimit[1][3] = 3;
+        jointLimit[0][1] = -3;
+        jointLimit[1][1] = 1;
+        jointLimit[0][3] = -3;
+        jointLimit[1][3] = 1;
 
-        jointLimit[0][2] = -3;
-        jointLimit[1][2] = -0.02f;
-        jointLimit[0][4] = -3;
-        jointLimit[1][4] = -0.02f;
+        jointLimit[0][2] = 0.02;
+        jointLimit[1][2] = 3f;
+        jointLimit[0][4] = 0.02;
+        jointLimit[1][4] = 3f;
 
-        targetLimit[0][1] = -0.4f;
-        targetLimit[1][1] = 1.6f;
-        targetLimit[0][3] = -0.4f;
-        targetLimit[1][3] = 1.6f;
+        targetLimit[0][1] = -1.6f;
+        targetLimit[1][1] = 0.4f;
+        targetLimit[0][3] = -1.6f;
+        targetLimit[1][3] = 0.4f;
 
         nrStates = 0;
         nrGroups = 0;
