@@ -29,5 +29,7 @@ package org.etoile.animation.ode;
  */
 public interface BaseCollision {
     public void startCollision();
+    
+    void beforeEndCollision();
     public void endCollision();
 }

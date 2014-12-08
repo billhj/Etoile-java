@@ -113,6 +113,7 @@ public class SimpleOdeCollision implements BaseCollision{
 
     @Override
     public void endCollision() {
+        beforeEndCollision();
         _contactgroup.empty();
         _contacts.clear();;
     }
@@ -127,6 +128,11 @@ public class SimpleOdeCollision implements BaseCollision{
 
     public ArrayList<DContact> getContacts() {
         return _contacts;
+    }
+
+    @Override
+    public void beforeEndCollision() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

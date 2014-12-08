@@ -43,7 +43,9 @@ import org.ode4j.ode.OdeHelper;
 
 /**
  *
- * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
+ * @author Jing Huang
+ *
+ * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
 public class DemoSimpleOdeCollision extends SimpleOdeCollision {
 
@@ -68,8 +70,8 @@ public class DemoSimpleOdeCollision extends SimpleOdeCollision {
         DContactBuffer contacts = new DContactBuffer(N);
         int n = OdeHelper.collide(o1, o2, N, contacts.getGeomBuffer());
         if (n > 0) {
-            DMatrix3 RI = new DMatrix3();
-            RI.setIdentity();
+            //DMatrix3 RI = new DMatrix3();
+            //RI.setIdentity();
             for (int i = 0; i < n; i++) {
                 DContact contact = contacts.get(i);
                 _contacts.add(contact);
@@ -86,10 +88,30 @@ public class DemoSimpleOdeCollision extends SimpleOdeCollision {
                 DContactJoint c = OdeHelper.createContactJoint(_world, _contactgroup, contact);
                 c.attach(contact.geom.g1.getBody(),
                         contact.geom.g2.getBody());
-                if (_showContactPoint) {
-                    DContactGeom contactgeom = contacts.get(i).getContactGeom();
-                    double dp = contactgeom.depth;
-                    DVector3 normal = contactgeom.normal;
+//                if (_showContactPoint) {
+//                    DContactGeom contactgeom = contacts.get(i).getContactGeom();
+//                    double dp = 1 * 10;//contactgeom.depth;
+//                    DVector3 normal = contact.fdir1;
+//                    DVector3 ss = new DVector3(0.02, 0.02, 0.02).add(normal.reScale(dp));
+//                    dsSetColorAlpha(1, 0, 0, 1);
+//                    dsDrawBox(contactgeom.pos, RI, ss);
+//                }
+            }
+        }
+    }
+
+    @Override
+    public void beforeEndCollision() {
+        if (_showContactPoint) {
+            DMatrix3 RI = new DMatrix3();
+            RI.setIdentity();
+            int collisions = _contacts.size();
+            if (collisions > 0) {
+                for (int i = 0; i < collisions; i++) {
+                    DContact contact = _contacts.get(i);
+                    DContactGeom contactgeom = contact.getContactGeom();
+                    double dp = 1 * 10;//contactgeom.depth;
+                    DVector3 normal = contact.fdir1;
                     DVector3 ss = new DVector3(0.02, 0.02, 0.02).add(normal.reScale(dp));
                     dsSetColorAlpha(1, 0, 0, 1);
                     dsDrawBox(contactgeom.pos, RI, ss);
