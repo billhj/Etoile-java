@@ -241,6 +241,10 @@ public class OdePhysicsEnvironment {
     public SimpleOdeCollision getCollision() {
         return _collision;
     }
+
+    public DPlane getGround() {
+        return _ground;
+    }
     
     
 }

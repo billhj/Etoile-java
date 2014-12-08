@@ -6,8 +6,10 @@
 
 package org.etoile.animation.ode;
 
+import java.util.ArrayList;
 import org.ode4j.ode.DContact;
 import org.ode4j.ode.DContactBuffer;
+import org.ode4j.ode.DContactJoint;
 import org.ode4j.ode.DGeom;
 import org.ode4j.ode.DJoint;
 import org.ode4j.ode.DJointGroup;
@@ -28,6 +30,7 @@ public class SimpleOdeCollision implements BaseCollision{
 
     protected static final int MAX_CONTACTS = 32;          // maximum number of contact points per body
     protected static DJointGroup _contactgroup = OdeHelper.createJointGroup();
+    protected ArrayList<DContact> _contacts = new ArrayList<>();
     protected DWorld _world;
     protected DSpace _space;
     
@@ -79,6 +82,7 @@ public class SimpleOdeCollision implements BaseCollision{
         if (n > 0) {
             for (int i = 0; i < n; i++) {
                 DContact contact = contacts.get(i);
+                _contacts.add(contact);
 				// Paranoia  <-- not working for some people, temporarily removed for 0.6
                 //dIASSERT(dVALIDVEC3(contact[i].geom.pos));
                 //dIASSERT(dVALIDVEC3(contact[i].geom.normal));
@@ -89,7 +93,7 @@ public class SimpleOdeCollision implements BaseCollision{
                 contact.surface.mu = 0.3; // was: dInfinity
                 contact.surface.soft_erp = 0.06;
                 contact.surface.soft_cfm = 0.04;
-                DJoint c = OdeHelper.createContactJoint(_world, _contactgroup, contact);
+                DContactJoint c = OdeHelper.createContactJoint(_world, _contactgroup, contact);
                 c.attach(contact.geom.g1.getBody(),
                         contact.geom.g2.getBody());
             }
@@ -110,17 +114,19 @@ public class SimpleOdeCollision implements BaseCollision{
     @Override
     public void endCollision() {
         _contactgroup.empty();
+        _contacts.clear();;
     }
 
     public static int getMAX_CONTACTS() {
         return MAX_CONTACTS;
     }
 
-    public static DJointGroup getContactgroup() {
+    public DJointGroup getContactgroup() {
         return _contactgroup;
     }
-    
-    
-    
+
+    public ArrayList<DContact> getContacts() {
+        return _contacts;
+    }
     
 }

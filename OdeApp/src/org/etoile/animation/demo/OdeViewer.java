@@ -241,8 +241,8 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         if (builder.loadFile("../bin/data/camille_body.xml")){
             builder.buildBodyFromSkeleton(skeleton, _human);
         }
-        //BalanceController balance = new BalanceController(_human);
-        SimbiconWalkingController walk = new SimbiconWalkingController(_human);
+        BalanceController balance = new BalanceController(_human);
+        //SimbiconWalkingController walk = new SimbiconWalkingController(_human);
     }
 
     /**

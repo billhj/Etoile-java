@@ -41,7 +41,7 @@ public class BalanceController implements BaseController {
     boolean _active = true;
     double[] _com = new double[]{0, 0, 0};
     double[] _comdiff = new double[]{0, 0, 0};
-    double[] _offset = new double[]{0.05, 0, 0};
+    double[] _offset = new double[]{0.00, 0, 0};
 
     private double kpx = 280f;
     private double kvx = 28f;
@@ -117,6 +117,11 @@ public class BalanceController implements BaseController {
     @Override
     public void update(double dt) {
 
+//        if(!_human.handleGroundCollisions()){
+//            System.out.println("not on the ground");
+//            return;
+//        }
+        
         _human.updateCOM(dt);
         _human.getCOM(_com);
         _human.getCOMDiff(_comdiff);

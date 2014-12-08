@@ -43,7 +43,7 @@ import org.ode4j.ode.OdeHelper;
 
 /**
  *
- * @author Jing Huang
+ * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
 public class DemoSimpleOdeCollision extends SimpleOdeCollision {
 
@@ -72,7 +72,7 @@ public class DemoSimpleOdeCollision extends SimpleOdeCollision {
             RI.setIdentity();
             for (int i = 0; i < n; i++) {
                 DContact contact = contacts.get(i);
-
+                _contacts.add(contact);
                 // Paranoia  <-- not working for some people, temporarily removed for 0.6
                 //dIASSERT(dVALIDVEC3(contact[i].geom.pos));
                 //dIASSERT(dVALIDVEC3(contact[i].geom.normal));
