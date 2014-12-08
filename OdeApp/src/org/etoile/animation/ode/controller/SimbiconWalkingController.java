@@ -258,7 +258,7 @@ public class SimbiconWalkingController implements BaseController {
 
     private double kpx = 280f;
     private double kvx = 28f;
-    private double s = 1.0;
+    private double s = 0.50;
     private double lHipCZ = 0;
     private double rHipCZ = 0;
     private double khz = 150f;

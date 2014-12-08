@@ -101,6 +101,8 @@ public class Bip7 {
 	for (int n=0; n<nrStates; n+=2) {
 		State[n] += State[n+1]*Dt + 0.5*ac[n/2]*Dt*Dt;  // update position
 		State[n+1] += ac[n/2]*Dt;                       // update velocity
+//                if(n==0|| n==2)
+//                System.out.println("n" + n+"" + State[n]);
 	}
 	if (State[4]>Math.PI)
 		State[4] -= 2.0*Math.PI;
