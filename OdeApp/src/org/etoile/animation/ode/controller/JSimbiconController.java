@@ -90,16 +90,16 @@ public class JSimbiconController {
 //    }
     
      // advance FSM state
-    boolean advance(){
+    boolean advance(double FootState[]){
 	boolean transition = false;
 	ConState s = state[fsmState];
 
 	boolean oldStance = s.leftStance;
 	if ( s.timeFlag && (stateTime > s.transTime) )   // time-based transition ?
 		transition = true;
-//	else if (!s.timeFlag && (b.FootState[s.sensorNum]!=0)) {   // sensor-based transition ?
-//		transition = true;
-//	}
+	else if (!s.timeFlag && (FootState[s.sensorNum]!=0)) {   // sensor-based transition ?
+		transition = true;
+	}
 
 	if (transition) {
 		stateTime = 0;                    // reset state time

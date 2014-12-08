@@ -42,9 +42,5 @@ public class OdeDemoEnvironment extends OdePhysicsEnvironment{
         super.physicsSimulationStep();
     }
     
-    void setSimpleOdeCollision(SimpleOdeCollision collision){
-        collision.setSpace(_space);
-        collision.setWorld(_world);
-        _collision = collision;
-    }
+    
 }

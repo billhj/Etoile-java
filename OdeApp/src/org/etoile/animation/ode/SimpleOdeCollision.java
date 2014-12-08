@@ -86,7 +86,7 @@ public class SimpleOdeCollision implements BaseCollision{
                 contact.surface.slip1 = 0.1;
                 contact.surface.slip2 = 0.1;
                 contact.surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
-                contact.surface.mu = 0.2; // was: dInfinity
+                contact.surface.mu = 0.3; // was: dInfinity
                 contact.surface.soft_erp = 0.06;
                 contact.surface.soft_cfm = 0.04;
                 DJoint c = OdeHelper.createContactJoint(_world, _contactgroup, contact);
@@ -110,6 +110,14 @@ public class SimpleOdeCollision implements BaseCollision{
     @Override
     public void endCollision() {
         _contactgroup.empty();
+    }
+
+    public static int getMAX_CONTACTS() {
+        return MAX_CONTACTS;
+    }
+
+    public static DJointGroup getContactgroup() {
+        return _contactgroup;
     }
     
     

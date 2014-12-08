@@ -53,6 +53,9 @@ public class SimbiconWalkingController implements BaseController {
     public double CopyState[] = new double[nrStates];
     //and this is the array of monitor point positions
     public double MonState[] = new double[50];
+    public double FootState[] = new double[50];
+    //and this is how many monitor states we have
+    final public static int NMON = 12;
 
     OdeHumanoid _human;
     OdeRigidBody _lowertorso;
@@ -88,6 +91,7 @@ public class SimbiconWalkingController implements BaseController {
         _leftKnee = _human.getJoint("l_knee");
         double[] state = {0.463f, 0.98f, 0.898f, -0.229f, 0.051f, 0.276f, -0.221f, -1.430f, -0.217f, 0.086f, 0.298f, -3.268f, -0.601f, 3.167f, 0.360f, 0.697f, 0.241f, 3.532f};
         setState(state);
+        updateState(0);
     }
 
     /**
@@ -174,7 +178,7 @@ public class SimbiconWalkingController implements BaseController {
             wPDtorq(torq, n, target, _controller.kp[n], _controller.kd[n], worldFrame[n]);  // compute torques
         }
 
-        _controller.advance();   	// advance FSM to next state if needed
+        _controller.advance(FootState);   	// advance FSM to next state if needed
     }
 
     //////////////////////////////////////////////////////////

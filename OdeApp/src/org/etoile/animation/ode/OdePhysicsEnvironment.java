@@ -51,7 +51,7 @@ public class OdePhysicsEnvironment {
     protected List<OdeRigidBody> _rigidBodies = new ArrayList<>();
     protected List<OdeJoint> _odejoints = new ArrayList<>();
     protected List<BaseController> _controllers = new ArrayList<>();
-    protected BaseCollision _collision;
+    protected SimpleOdeCollision _collision;
 
     protected boolean _debug = false;
     long startTime = 0;
@@ -231,4 +231,16 @@ public class OdePhysicsEnvironment {
     public void setDoCollision(boolean doCollision) {
         this._doCollision = doCollision;
     }
+    
+    public void setSimpleOdeCollision(SimpleOdeCollision collision){
+        collision.setSpace(_space);
+        collision.setWorld(_world);
+        _collision = collision;
+    }
+
+    public SimpleOdeCollision getCollision() {
+        return _collision;
+    }
+    
+    
 }
