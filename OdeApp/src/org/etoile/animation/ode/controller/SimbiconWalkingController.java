@@ -74,6 +74,7 @@ public class SimbiconWalkingController implements BaseController {
     double[] _com = new double[]{0, 0, 0};
     double[] _comdiff = new double[]{0, 0, 0};
 
+    OdeJoint _vl1;
     OdeJoint _leftAnkle;
     OdeJoint _rightAnkle;
     OdeJoint _rightHip;
@@ -87,12 +88,13 @@ public class SimbiconWalkingController implements BaseController {
         _human = human;
         _human.addController(this);
         _controller.addWalkingController();
-        _controller.addRunningController();
-        _controller.addCrouchWalkController();
+        //_controller.addRunningController();
+        //_controller.addCrouchWalkController();
 
         _lowertorso = _human.getBody("lower_torso");
         _leftFoot = _human.getBody("foot_l");
         _rightFoot = _human.getBody("foot_r");
+        _vl1 = _human.getJoint("vl1");
         _leftAnkle = _human.getJoint("l_ankle");
         _rightAnkle = _human.getJoint("r_ankle");
         _rightHip = _human.getJoint("r_hip");
@@ -258,7 +260,7 @@ public class SimbiconWalkingController implements BaseController {
 
     private double kpx = 280f;
     private double kvx = 28f;
-    private double s = 0.50;
+    private double s = 1;
     private double lHipCZ = 0;
     private double rHipCZ = 0;
     private double khz = 150f;
@@ -288,31 +290,43 @@ public class SimbiconWalkingController implements BaseController {
 
         if(dt>0)
         {
+            //_lowertorso.addForce(0, 0, 5);
+//            QuaternionD q = _lowertorso.getRotation();
+//            double z = q.getEulerAngleXYZ().get2();
+//            _leftHip.addTorque(0, 0f, z);
+//            _rightHip.addTorque(0, 0f, z);
+//            System.out.println(z);
+            
             double[] centerfeet = new double[]{0, 0, 0};
             centerfeet[0] = (leftFootPos.get0() + rightFootPos.get0()) * 0.5;
             centerfeet[1] = (leftFootPos.get1() + rightFootPos.get1()) * 0.5;
             centerfeet[2] = (leftFootPos.get2() + rightFootPos.get2()) * 0.5;
-            double offsetX = s * kpx * (centerfeet[0] - _com[0]) - kvx * _comdiff[0];
-            _leftHip.addTorque(0, 0f, -offsetX);
-            _rightHip.addTorque(0, 0f, -offsetX);
+            double offsetX = s * kpx * (centerfeet[0] - _com[0]);// - kvx * _comdiff[0];
+            //_leftHip.addTorque(0, 0f, -offsetX);
+            //_rightHip.addTorque(0, 0f, -offsetX * 5);
+//            if(offsetX > 0){
+//                _leftHip.addTorque(0, 0, offsetX );
+//            }else{
+//                _rightHip.addTorque(0, 0, offsetX );
+//            }
 
-            float hipDZ = 0;
-            double dHipRZ = 0;
-            double dHipLZ = 0;
-            double rHipOldZ = rHipCZ;
-            double lHipOldZ = lHipCZ;
-            lHipCZ = -_leftHip.getAngle(2);
-            rHipCZ = -_rightHip.getAngle(2);
-            dHipRZ = (rHipCZ - rHipOldZ) / dt;
-            dHipLZ = (lHipCZ - lHipOldZ) / dt;
-
-            double torqueL = (hipDZ - lHipCZ) * s * khz - dHipLZ * s * 15f;
-            double torqueR = (hipDZ - rHipCZ) * s * khz - dHipRZ * s * 15f;
-            _leftHip.addTorque(0, 0, -torqueL);
-            _rightHip.addTorque(0, 0, -torqueR);
+//            float hipDZ = 0;
+//            double dHipRZ = 0;
+//            double dHipLZ = 0;
+//            double rHipOldZ = rHipCZ;
+//            double lHipOldZ = lHipCZ;
+//            lHipCZ = -_leftHip.getAngle(2);
+//            rHipCZ = -_rightHip.getAngle(2);
+//            dHipRZ = (rHipCZ - rHipOldZ) / dt;
+//            dHipLZ = (lHipCZ - lHipOldZ) / dt;
+//
+//            double torqueL = (hipDZ - lHipCZ) * s * khz - dHipLZ * s * 15f;
+//            double torqueR = (hipDZ - rHipCZ) * s * khz - dHipRZ * s * 15f;
+//            _leftHip.addTorque(0, 0, -torqueL);
+//            _rightHip.addTorque(0, 0, -torqueR);
             
-            _leftAnkle.addTorque(0, 0f, offsetX * s * 3);
-            _rightAnkle.addTorque(0, 0f, offsetX * s * 3);
+           // _leftAnkle.addTorque(0, 0f, offsetX * s * 50);
+           // _rightAnkle.addTorque(0, 0f, offsetX * s * 50);
         }
 
         State[1] = _comdiff[2];

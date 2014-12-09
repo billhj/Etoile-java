@@ -176,7 +176,7 @@ public class OdeViewer extends DrawStuff.dsFunctions {
 //            OdeRigidBody upper = _human.getBody("upper_torso");
 //            OdeRigidBody lower = _human.getBody("lower_torso");
             OdeRigidBody upper = _env.getBody(6);
-            upper.addForce(0, 0, -1000);
+            upper.addForce(0, 0, -100);
 //            QuaternionD q = upper.getRotation();
 //            QuaternionD ql = lower.getRotation();
 //            QuaternionD q2 = _human.getJoint("vl1").getRotation();
@@ -186,14 +186,14 @@ public class OdeViewer extends DrawStuff.dsFunctions {
             //upper.addForce(0, 0, -1000);
         } else if (cmd == 's') {
             OdeRigidBody upper = _env.getBody(6);
-            upper.addForce(0, 0, 1000);
+            upper.addForce(0, 0, 100);
             //_human.getJoint("vl1").addTorque(0 , 0, 1000);
         } else if (cmd == 'a') {
             OdeRigidBody upper = _env.getBody(6);
-            upper.addForce(-1000, 0, 0);
+            upper.addForce(-100, 0, 0);
         } else if (cmd == 'd') {
             OdeRigidBody upper = _env.getBody(6);
-            upper.addForce(1000, 0, 0);
+            upper.addForce(100, 0, 0);
         } else if (cmd == 'e') {
             _rec = false;
             System.out.println("bap reco end");

@@ -35,6 +35,7 @@ import org.ode4j.ode.DContactJoint;
 import org.ode4j.ode.DGeom;
 import org.ode4j.ode.DSpace;
 import static org.ode4j.ode.OdeConstants.dContactApprox1;
+import static org.ode4j.ode.OdeConstants.dContactFDir1;
 import static org.ode4j.ode.OdeConstants.dContactSlip1;
 import static org.ode4j.ode.OdeConstants.dContactSlip2;
 import static org.ode4j.ode.OdeConstants.dContactSoftCFM;
@@ -81,8 +82,8 @@ public class DemoSimpleOdeCollision extends SimpleOdeCollision {
                 //dIASSERT(!dIsNan(contact[i].geom.depth));
                 contact.surface.slip1 = 0.3;
                 contact.surface.slip2 = 0.3;
-                contact.surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2;
-                contact.surface.mu = 0.2; // was: dInfinity
+                contact.surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactSlip1 | dContactSlip2 ;
+                contact.surface.mu = 0.1; // was: dInfinity
                 contact.surface.soft_erp = 0.001;
                 contact.surface.soft_cfm = 0.001;
                 DContactJoint c = OdeHelper.createContactJoint(_world, _contactgroup, contact);
