@@ -24,6 +24,7 @@
 package org.etoile.animation.ode.controller;
 
 import org.etoile.animation.ode.OdeHumanSpine;
+import org.etoile.animation.ode.OdeHumanoid;
 import org.etoile.animation.ode.OdeJoint;
 
 /**
@@ -37,30 +38,30 @@ public class SpineController implements BaseController{
     boolean _active = true;
     double _kP = 360;
     double _kd = 2 * Math.sqrt(_kP);
-    OdeHumanSpine _spine;
+    OdeHumanoid _spine;
     
     double _intensity0 = 20;
     double _intensity1 = 60.1;
     double _intensity2 = 40.1;
     double _s = 0.1;
-    public SpineController(OdeHumanSpine spine){
+    public SpineController(OdeHumanoid spine){
         _spine = spine;
         _name = "spine controller";
         spine.addController(this);
-        _controllers = new UniversalJointController[3];
+        _controllers = new UniversalJointController[1];
         OdeJoint j = spine.getJoint("vl1");
-        OdeJoint j1 = spine.getJoint("vt7");
-        OdeJoint j2 = spine.getJoint("vt4");
+//        OdeJoint j1 = spine.getJoint("vt7");
+//        OdeJoint j2 = spine.getJoint("vt4");
         _controllers[0] = new UniversalJointController(j);
-        _controllers[1] = new UniversalJointController(j1);
-        _controllers[2] = new UniversalJointController(j2);
+//        _controllers[1] = new UniversalJointController(j1);
+//        _controllers[2] = new UniversalJointController(j2);
          
         _controllers[0].setKParameter(0, _kP, _kd);
         _controllers[0].setKParameter(1, _kP, _kd);
-        _controllers[1].setKParameter(0, _kP, _kd);
-        _controllers[1].setKParameter(1, _kP, _kd);
-        _controllers[2].setKParameter(0, _kP, _kd);
-        _controllers[2].setKParameter(1, _kP, _kd);
+//        _controllers[1].setKParameter(0, _kP, _kd);
+//        _controllers[1].setKParameter(1, _kP, _kd);
+//        _controllers[2].setKParameter(0, _kP, _kd);
+//        _controllers[2].setKParameter(1, _kP, _kd);
     }
     
     double getKinematicsAngle(){
@@ -72,22 +73,22 @@ public class SpineController implements BaseController{
         if (!_active) {
             return;
         }
-        double angle = getKinematicsAngle();
-        angle = Math.max(angle, 0);
+        //double angle = getKinematicsAngle();
+        //angle = Math.max(angle, 0);
         OdeJoint j0 = _controllers[0].getJoint();
         double x0 = j0.getAngle(2);
-        _controllers[0].setDesireAngle(0, -angle * _intensity0 * _s);
+        _controllers[0].setDesireAngle(0, -0 * _intensity0 * _s);
         
-        OdeJoint j1 = _controllers[1].getJoint();
-        double x1 = j1.getAngle(2);
-        _controllers[1].setDesireAngle(0, -angle * _intensity1 * _s);
-        
-        OdeJoint j2 = _controllers[2].getJoint();
-        double x2 = j2.getAngle(2);
-        _controllers[2].setDesireAngle(0, -angle * _intensity2 * _s);
+//        OdeJoint j1 = _controllers[1].getJoint();
+//        double x1 = j1.getAngle(2);
+//        _controllers[1].setDesireAngle(0, -angle * _intensity1 * _s);
+//        
+//        OdeJoint j2 = _controllers[2].getJoint();
+//        double x2 = j2.getAngle(2);
+        //_controllers[2].setDesireAngle(0, -angle * _intensity2 * _s);
         _controllers[0].update(dt);
-        _controllers[1].update(dt);
-        _controllers[2].update(dt);
+//        _controllers[1].update(dt);
+//        _controllers[2].update(dt);
     }
 
      @Override

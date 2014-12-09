@@ -33,6 +33,7 @@ import org.etoile.animation.ode.OdeRigidBody;
 import org.etoile.animation.ode.QuaternionD;
 import org.etoile.animation.ode.controller.BalanceController;
 import org.etoile.animation.ode.controller.SimbiconWalkingController;
+import org.etoile.animation.ode.controller.SpineController;
 import org.etoile.core.animation.Skeleton;
 import org.ode4j.drawstuff.DrawStuff;
 import static org.ode4j.drawstuff.DrawStuff.dsDrawBox;
@@ -248,6 +249,8 @@ public class OdeViewer extends DrawStuff.dsFunctions {
             builder.buildBodyFromSkeleton(skeleton, _human);
         }
         BalanceController balance = new BalanceController(_human);
+        SpineController spine = new SpineController(_human);
+        
         //SimbiconWalkingController walk = new SimbiconWalkingController(_human);
     }
 

@@ -87,6 +87,7 @@ public class BalanceController implements BaseController {
 
     public BalanceController(OdeHumanoid human) {
         _human = human;
+        human.glueFeetToFloor();
         _human.addController(this);
         leftFoot = _human.getBody("foot_l");
         rightFoot = _human.getBody("foot_r");

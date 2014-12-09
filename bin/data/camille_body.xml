@@ -5,12 +5,23 @@
 	<body name="upper_leg_r" start="r_hip" end="r_knee" mass="8" color="0.1 0.4 0.1 0.7" offset="0 0 0"/>
 	<body name="lower_leg_l" start="l_knee" end="l_ankle" mass="3" color="0.5 0.4 0.1 0.7" offset="0 0 0"/>
 	<body name="lower_leg_r" start="r_knee" end="r_ankle" mass="3" color="0.5 0.4 0.1 0.7" offset="0 0 0"/>
-	<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0" box="0.10 0 0.22"/>
-	<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0" box="0.10 0 0.22"/>
-	<body name="lower_torso" start="HumanoidRoot" end="vl1" mass="10" color="0.2 0.4 0.6 0.7" offset="0 0 0.01"/>
-	<body name="upper_torso" start="vl1" end="vc7" mass="1" color="0.2 0.8 0.6 0.7" offset="0 0 0.01"/>
+	<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0" box="0.10 0 0.25"/>
+	<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0" box="0.10 0 0.25"/>
+	<body name="lower_torso" start="HumanoidRoot" end="vl1" mass="10" color="0.2 0.4 0.6 0.7" offset="0 0 0.02" box="0 0.2 0"/>
+	<body name="upper_torso" start="vl1" end="vc7" mass="1" color="0.2 0.8 0.6 0.7" offset="0 0 0.02" box="0.2 0 0.2"/>
+	<body name="upperarm_l" start="l_shoulder" end="l_elbow" mass="3" color="0.2 0.3 0.6 0.7" offset="0 0 0.05"/>
+	<body name="upperarm_r" start="r_shoulder" end="r_elbow" mass="3" color="0.2 0.3 0.6 0.7" offset="0 0 0.05"/>
+	<body name="lowerarm_l" start="l_elbow" end="l_wrist" mass="2" color="0.6 0.3 0.6 0.7" offset="0 0 0.05"/>
+	<body name="lowerarm_r" start="r_elbow" end="r_wrist" mass="2" color="0.6 0.3 0.6 0.7" offset="0 0 0.05"/>
+	<body name="head" start="vc7" end="skullbase" mass="2" color="0.6 0.3 0.6 0.7" offset="0 0 0.02"/>
+	
 </bodys>
 <joints>
+	<joint name="l_elbow" start="upperarm_l" end="lowerarm_l" type="HINGE"  axis0="1 0 0"  loStopX="-2.5" hiStopX="0"/>
+	<joint name="r_elbow" start="upperarm_r" end="lowerarm_r" type="HINGE"  axis0="1 0 0"  loStopX="-2.5" hiStopX="0"/>
+	<joint name="l_shoulder" start="upper_torso" end="upperarm_l" type="BALL"  axis0="1 0 0" axis1="0 0 1" loStopX="-1" hiStopX="1" loStopY="-1" hiStopY="1" loStopZ="-1" hiStopZ="1"/>
+	<joint name="r_shoulder" start="upper_torso" end="upperarm_r" type="BALL"  axis0="1 0 0" axis1="0 0 1" loStopX="-1" hiStopX="1" loStopY="-1" hiStopY="1" loStopZ="-1" hiStopZ="1"/>
+	<joint name="vc7" start="upper_torso" end="head" type="UNIVERSAL"  axis0="1 0 0" axis1="0 0 1" loStopX="-1" hiStopX="1" loStopY="-1" hiStopY="1" loStopZ="-1" hiStopZ="1"/>
 	<joint name="vl1" start="lower_torso" end="upper_torso" type="UNIVERSAL"  axis0="1 0 0" axis1="0 0 1" loStopX="-1" hiStopX="1" loStopY="-1" hiStopY="1" loStopZ="-1" hiStopZ="1"/>
 	<joint name="l_hip" start="lower_torso" end="upper_leg_l" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStopX="-1.7" hiStopX="0"  loStopY="0" hiStopY="0" loStopZ="0" hiStopZ="0.01"/>
 	<joint name="r_hip" start="lower_torso" end="upper_leg_r" type="UNIVERSAL" axis0="1 0 0" axis1="0 0 1" loStopX="-1.7" hiStopX="0"  loStopY="0" hiStopY="0" loStopZ="-0.01" hiStopZ="0"/>
