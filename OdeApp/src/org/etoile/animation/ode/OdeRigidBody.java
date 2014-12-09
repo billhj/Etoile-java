@@ -24,6 +24,7 @@
 package org.etoile.animation.ode;
 
 import org.ode4j.math.DMatrix3C;
+import org.ode4j.math.DQuaternion;
 import org.ode4j.math.DVector3;
 import org.ode4j.math.DVector3C;
 import org.ode4j.ode.DBody;
@@ -49,6 +50,8 @@ public class OdeRigidBody {
     protected double[] _color = new double[]{1, 1, 0, 0.5};
     protected MotionType _motiontype = MotionType.DYNAMICS;
     protected double[] _com_localposition = new double[3];
+    protected QuaternionD _originalRotation = new QuaternionD();
+    protected DVector3 _originalPosition = new DVector3();
     
     public enum MotionType {
         KINEMATICS,
@@ -306,4 +309,22 @@ public class OdeRigidBody {
         this._com_localposition[2] = z;
     }
     
+    public void saveOriginalProperties(){
+        QuaternionD r = getRotation();
+        _originalRotation.setValue(r.x(), r.y(), r.z(), r.w());
+        DVector3C p = getPosition();
+        _originalPosition.set(p.get0(), p.get1(), p.get2());
+    }
+    
+    public void loadOriginalProperties(){
+        setPosition(_originalPosition.get0(), _originalPosition.get1(), _originalPosition.get2());
+        setRotation(_originalRotation);
+        this.setVelocity(0, 0, 0);
+        _body.setAngularVel(0, 0, 0);
+        this.setForce(0, 0, 0);
+    }
+    
+    public void reset(){
+        loadOriginalProperties();
+    }
 }

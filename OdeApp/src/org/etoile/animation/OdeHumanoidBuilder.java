@@ -148,6 +148,7 @@ public class OdeHumanoidBuilder {
                 body.setMotionType(OdeRigidBody.MotionType.KINEMATICS);
             }
         }
+        body.saveOriginalProperties();
         //System.out.println(name + com);
     }
 

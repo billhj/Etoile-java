@@ -211,6 +211,8 @@ public class OdeViewer extends DrawStuff.dsFunctions {
             r.fromEulerXYZ(-0.5,0,0);
             _env.getBody(8).setRotation(r);
             //Syst
+        }else if(cmd=='r'){
+            init();
         }
     }
 
@@ -220,15 +222,19 @@ public class OdeViewer extends DrawStuff.dsFunctions {
     }
 
     private void demo(String[] args) {
-        _env = new OdeDemoEnvironment();
-        _env.setPause(true);
-        initCharacter();
-        ((OdeDemoEnvironment) _env).setSimpleOdeCollision(new DemoSimpleOdeCollision());
+        init();
         dsSimulationLoop(args, 1024, 768, this);
         if (_env != null) {
             _env.release();
         }
     }    
+    
+    private void init(){
+        _env = new OdeDemoEnvironment();
+        _env.setPause(true);
+        initCharacter();
+        ((OdeDemoEnvironment) _env).setSimpleOdeCollision(new DemoSimpleOdeCollision());
+    }
     private void initCharacter(){
         Skeleton skeleton = new Skeleton("test");
         SkeletonParser parser = new SkeletonParser();
@@ -241,8 +247,8 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         if (builder.loadFile("../bin/data/camille_body.xml")){
             builder.buildBodyFromSkeleton(skeleton, _human);
         }
-        //BalanceController balance = new BalanceController(_human);
-        SimbiconWalkingController walk = new SimbiconWalkingController(_human);
+        BalanceController balance = new BalanceController(_human);
+        //SimbiconWalkingController walk = new SimbiconWalkingController(_human);
     }
 
     /**
