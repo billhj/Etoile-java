@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <humanoid>
 <bodys>
-	<body name="upper_leg_l" start="l_hip" end="l_knee" mass="8" color="0.1 0.4 0.1 0.7" offset="0 0 0" motiontype="dynamics"/>
+	<body name="upper_leg_l" start="l_hip" end="l_knee" mass="8" color="0.1 0.4 0.1 0.7" offset="0 0 0" box="0 0 0" motiontype="dynamics"/>
 	<body name="upper_leg_r" start="r_hip" end="r_knee" mass="8" color="0.1 0.4 0.1 0.7" offset="0 0 0"/>
 	<body name="lower_leg_l" start="l_knee" end="l_ankle" mass="3" color="0.5 0.4 0.1 0.7" offset="0 0 0"/>
 	<body name="lower_leg_r" start="r_knee" end="r_ankle" mass="3" color="0.5 0.4 0.1 0.7" offset="0 0 0"/>
-	<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0.04"/>
-	<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0.04"/>
-	<body name="lower_torso" start="HumanoidRoot" end="vc7" mass="20" color="0.2 0.4 0.6 0.7" offset="0 0 0.01"/>
+	<body name="foot_l" start="l_ankle" end="l_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0.04" box="0.15 0 0.2"/>
+	<body name="foot_r" start="r_ankle" end="r_midtarsal" mass="1" color="0.2 0.4 0.1 0.7" offset="0 0 -0.04" box="0.15 0 0.2"/>
+	<body name="lower_torso" start="HumanoidRoot" end="vc7" mass="10" color="0.2 0.4 0.6 0.7" offset="0 0 0.01"/>
 	<!--body name="upper_torso" start="vl1" end="vc7" mass="1" color="0.2 0.8 0.6 0.7" offset="0 0 0.01"/-->
 </bodys>
 <joints>

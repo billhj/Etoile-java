@@ -101,12 +101,27 @@ public class OdeHumanoidBuilder {
         if (box[0] < 0.1) {
             box[0] = 0.1;
         }
-        if (box[1] < 0.1) {
-            box[1] = 0.1;
+        if (box[1] < 0.01) {
+            box[1] = 0.01;
         }
         if (box[2] < 0.1) {
             box[2] = 0.1;
         }
+        
+        if(current.hasAttribute("box")){
+            double[] b = getArray(current.getAttribute("box"));
+            if(b[0] > 0){
+                box[0] = b[0];
+            }
+            if(b[1] > 0){
+                box[1] = b[1];
+            }
+            if(b[2] > 0){
+                box[2] = b[2];
+            }
+        }
+        
+        
         Matrix33 inertia = generateRotationInertia(box[0], box[1], box[2], mass, dir, new ColumnVector3(0, 1, 0));
 
         OdeRigidBody body = human.createBody(name);
