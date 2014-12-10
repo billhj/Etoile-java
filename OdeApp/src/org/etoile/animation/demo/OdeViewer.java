@@ -32,6 +32,7 @@ import org.etoile.animation.ode.OdePhysicsEnvironment;
 import org.etoile.animation.ode.OdeRigidBody;
 import org.etoile.animation.ode.QuaternionD;
 import org.etoile.animation.ode.controller.BalanceController;
+import org.etoile.animation.ode.controller.RightArmController;
 import org.etoile.animation.ode.controller.SimbiconWalkingController;
 import org.etoile.animation.ode.controller.SpineController;
 import org.etoile.core.animation.Skeleton;
@@ -214,6 +215,8 @@ public class OdeViewer extends DrawStuff.dsFunctions {
             //Syst
         }else if(cmd=='r'){
             init();
+        }else if(cmd=='l'){
+            rarmc.setElbowTarget(-2);
         }
     }
 
@@ -250,10 +253,10 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         }
         BalanceController balance = new BalanceController(_human);
         SpineController spine = new SpineController(_human);
-        
+        rarmc = new RightArmController(_human);
         //SimbiconWalkingController walk = new SimbiconWalkingController(_human);
     }
-
+    RightArmController rarmc;
     /**
      * @param args
      */
