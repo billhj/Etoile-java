@@ -999,16 +999,19 @@ public class DrawStuffGL extends LwJGL implements DrawStuffApi {
 	{
 		float side = 0.01f * deltax;
 		float fwd = (mode==4) ? (0.01f * deltay) : 0.0f;
-		float s = (float) Math.sin (view_rxyz[0]*DEG_TO_RAD);
-		float c = (float) Math.cos (view_rxyz[0]*DEG_TO_RAD);
+		float s = (float) Math.sin (view_rxyz[1]*DEG_TO_RAD);
+		float c = (float) Math.cos (view_rxyz[1]*DEG_TO_RAD);
 
 		if (mode==1) {
 			view_rxyz[1] += -deltax * 0.2f;
 			view_rxyz[0] += -deltay * 0.2f;
 		}
 		else {
-			view_xyz[1] += -s*side + c*fwd;
-			view_xyz[0] += -c*side - s*fwd;
+//			view_xyz[1] += -s*side + c*fwd;
+//			view_xyz[0] += -c*side - s*fwd;
+                        view_xyz[1] += 0.005f * deltay;
+			view_xyz[0] += -c * side * 0.2;
+                        view_xyz[2] += -s * side * 0.2;
 			if (mode==2 || mode==5) view_xyz[2] += 0.01f * deltay;
 		}
 		wrapCameraAngles();
