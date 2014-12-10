@@ -31,7 +31,7 @@ import org.ode4j.ode.DHingeJoint;
  *
  * @author Jing Huang  * <gabriel.jing.huang@gmail.com or jing.huang@telecom-paristech.fr>
  */
-public class HingeJoinController implements BaseController{
+public class HingeJointController implements BaseController{
     String _name;
     int _index;
     PDController _controller = new PDController();
@@ -41,7 +41,7 @@ public class HingeJoinController implements BaseController{
     private static final float KD_DEFAULT = 0.01f;
     OdeJoint _joint;
 
-    public HingeJoinController(String name, OdeJoint joint, int index, double desireAngle, double desireVelocity, double kP, double kD) {
+    public HingeJointController(String name, OdeJoint joint, int index, double desireAngle, double desireVelocity, double kP, double kD) {
         this._name = name;
         this._index = index;
         _controller._desireAngle = desireAngle;
@@ -52,11 +52,11 @@ public class HingeJoinController implements BaseController{
     }
     
     
-    public HingeJoinController(OdeJoint joint){
+    public HingeJointController(OdeJoint joint){
         this(joint.getName(),joint,0,0,0,KP_DEFAULT,KD_DEFAULT);
     }
     
-    public HingeJoinController(OdeJoint joint, double desireAngle){
+    public HingeJointController(OdeJoint joint, double desireAngle){
         this(joint.getName(),joint,0,desireAngle,0,KP_DEFAULT,KD_DEFAULT);
     }
     

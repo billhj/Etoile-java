@@ -30,10 +30,10 @@ package org.etoile.animation.ode.controller;
  */
 public class PDController {
     public double _friction = 0;
-    public double _desireAngle;
-    public double _desireVelocity;
-    public double _kP;  //propotional parameter
-    public double _kD; //derivative parameter
+    public double _desireAngle = 0;
+    public double _desireVelocity = 0;
+    public double _kP = 1.5;  //propotional parameter
+    public double _kD = 0.1; //derivative parameter
     public double _torqueOutput;
     
     public double compute(double currentAngle, double currentvelocity){
