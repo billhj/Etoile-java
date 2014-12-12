@@ -216,7 +216,7 @@ public class OdeViewer extends DrawStuff.dsFunctions {
         }else if(cmd=='r'){
             init();
         }else if(cmd=='l'){
-            rarmc.setElbowTarget(-2);
+            rarmc.setElbowTarget(-2, 0.2);
         }
     }
 

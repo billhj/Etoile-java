@@ -39,7 +39,7 @@ import org.ode4j.ode.OdeHelper;
 public class OdePhysicsEnvironment {
 
     protected String _id = "odephysicsenvironment";
-    protected float _timeStep = 0.003F;
+    protected float _timeStep = 0.0003F;
     protected boolean _pause = false;
     protected boolean _doCollision = true;
 

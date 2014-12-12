@@ -71,6 +71,10 @@ public class HingeJointController implements BaseController{
         j.addTorque(_controller._torqueOutput);
     }
     
+    public double getCurrentAngle(){
+        return ((DHingeJoint)_joint.getJoint()).getAngle();
+    }
+    
     public double getDesireAngle() {
         return _controller._desireAngle;
     }
