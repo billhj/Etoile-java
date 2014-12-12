@@ -38,6 +38,7 @@ import org.ode4j.ode.OdeHelper;
  */
 public class OdePhysicsEnvironment {
 
+    //need to really know the performance and intergation error
     protected String _id = "odephysicsenvironment";
     protected float _timeStep = 0.0003F;
     protected boolean _pause = false;
